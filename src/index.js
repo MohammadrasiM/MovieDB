@@ -8,7 +8,7 @@ import faIR from "antd/lib/locale/fa_IR";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ConfigProvider locale={faIR}>
+    <ConfigProvider direction locale={faIR}>
       {" "}
       <App />
     </ConfigProvider>
