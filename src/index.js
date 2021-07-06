@@ -5,12 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ConfigProvider } from "antd";
 import faIR from "antd/lib/locale/fa_IR";
-
+import ContextProvider from "./components/context";
 ReactDOM.render(
   <React.StrictMode>
     <ConfigProvider direction locale={faIR}>
       {" "}
-      <App />
+      <ContextProvider>
+        <App />
+      </ContextProvider>
     </ConfigProvider>
   </React.StrictMode>,
   document.getElementById("root")

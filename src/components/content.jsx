@@ -1,12 +1,13 @@
-import React, { Component, useState } from "react";
-import { Layout, Menu, Breadcrumb, Table, Spin } from "antd";
-
-import { Row, Col, Divider } from "antd";
+import React, { useState, useContext } from "react";
+import { Spin, Row, Col } from "antd";
+import { ContextContext } from "./context";
 import { Card } from "antd";
 
 const { Meta } = Card;
 
 export default function Firstcontent() {
+  const { value } = useContext(ContextContext);
+
   const [folan, setFolan] = useState([]);
   const [loading, setLoading] = useState(true);
   React.useEffect(() => {
@@ -20,31 +21,33 @@ export default function Firstcontent() {
       });
   }, []);
   console.log(folan);
-  return (
-    <div>
-      <Spin spinning={loading}>
-        <Row>
-          {folan.map((b) => (
-            <>
-              <Col xs={24} sm={12} md={8} xl={6}>
-                <Card
-                  loading={loading}
-                  hoverable
-                  style={{ width: 240 }}
-                  cover={
-                    <img
-                      alt="example"
-                      src={`https://image.tmdb.org/t/p/w500${b.poster_path}`}
-                    />
-                  }
-                >
-                  <Meta title={b.original_title} description={b.overview} />
-                </Card>
-              </Col>
-            </>
-          ))}
-        </Row>
-      </Spin>
-    </div>
-  );
+  if (value) {
+    return (
+      <div>
+        <Spin spinning={loading}>
+          <Row>
+            {folan.map((b) => (
+              <>
+                <Col xs={24} sm={12} md={8} xl={6}>
+                  <Card
+                    loading={loading}
+                    hoverable
+                    style={{ width: 240 }}
+                    cover={
+                      <img
+                        alt="example"
+                        src={`https://image.tmdb.org/t/p/w500${b.poster_path}`}
+                      />
+                    }
+                  >
+                    <Meta title={b.original_title} description={b.overview} />
+                  </Card>
+                </Col>
+              </>
+            ))}
+          </Row>
+        </Spin>
+      </div>
+    );
+  } else return null;
 }

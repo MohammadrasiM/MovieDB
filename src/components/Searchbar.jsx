@@ -1,7 +1,7 @@
-import React, { Component, useState } from "react";
-import { Layout, Menu, Breadcrumb, Table, Spin, Input, Space } from "antd";
-
-import { Row, Col, Divider } from "antd";
+import React, { useState, useContext } from "react";
+import { Input, Space } from "antd";
+import { ContextContext } from "./context";
+import { Row, Col } from "antd";
 import { Card } from "antd";
 
 const { Meta } = Card;
@@ -12,6 +12,7 @@ const baseapiUrl =
   "https://api.themoviedb.org/3/search/multi?api_key=70ce45fdad1824ccc3dad6c68ef34779";
 
 export default function Searchmovie() {
+  const { setValue } = useContext(ContextContext);
   const [folan, setFolan] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -21,6 +22,7 @@ export default function Searchmovie() {
       .then((data) => {
         setFolan([...data.results]);
         setLoading(false);
+        setValue(false);
       });
   };
   console.log(folan);
