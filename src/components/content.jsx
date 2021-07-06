@@ -11,7 +11,7 @@ export default function Firstcontent() {
   const [loading, setLoading] = useState(true);
   React.useEffect(() => {
     fetch(
-      "https://api.themoviedb.org/3/search/movie?api_key=70ce45fdad1824ccc3dad6c68ef34779&query=Star+Wars"
+      "https://api.themoviedb.org/3/movie/upcoming?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -38,7 +38,6 @@ export default function Firstcontent() {
                     />
                   }
                 >
-                  <p>{b.title}</p>{" "}
                   <Meta title={b.original_title} description={b.overview} />
                 </Card>
               </Col>

@@ -4,6 +4,7 @@ import "./App.css";
 import { Row, Col, Divider } from "antd";
 import { Card } from "antd";
 import Firstcontent from "./components/content";
+import Searchmovie from "./components/Searchbar";
 
 const { Meta } = Card;
 
@@ -28,6 +29,7 @@ function App() {
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-content">Content</div>
+          <Searchmovie />
           <Firstcontent />
         </Content>
         <Footer style={{ textAlign: "center" }}>
