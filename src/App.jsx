@@ -5,38 +5,60 @@ import { Row, Col, Divider } from "antd";
 import { Card } from "antd";
 import Firstcontent from "./components/content";
 import Searchmovie from "./components/Searchbar";
-
+import { BrowserRouter, Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import Contactus from "./components/Contactus";
+import Moviedetail from "./components/movie";
 const { Meta } = Card;
-
+const links = [
+  { name: "home", path: "/" },
+  { name: "blog", path: "/blog" },
+  { name: "contact-us", path: "/contact-us" },
+];
 const { Header, Content, Footer } = Layout;
 function App() {
   return (
-    <div id="components-layout-demo-custom-trigger">
-      <Layout className="layout">
-        <Header>
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-            {new Array(5).fill(null).map((_, index) => {
-              const key = index + 1;
-              return <Menu.Item key={key}>{`nav ${key}`}</Menu.Item>;
-            })}
-          </Menu>
-        </Header>
-        <Content style={{ padding: "0 50px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className="site-layout-content">Content</div>
-          <Searchmovie />
-          <Firstcontent />
-        </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
-      </Layout>
-      {/* <Row>
+    <BrowserRouter>
+      <div id="components-layout-demo-custom-trigger">
+        <Layout className="layout">
+          <Header>
+            <div className="logo" />
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+              {links.map((index) => {
+                const key = index.name;
+                return (
+                  <Menu.Item key={key}>
+                    <Link to={index.path}>{key}</Link>
+                  </Menu.Item>
+                );
+              })}
+            </Menu>
+          </Header>
+          <Content style={{ padding: "0 50px" }}>
+            <Breadcrumb style={{ margin: "16px 0" }}>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>List</Breadcrumb.Item>
+              <Breadcrumb.Item>App</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="site-layout-content">Content</div>
+            <Searchmovie />
+            <Switch>
+              <Route exact path="/">
+                <Firstcontent />
+              </Route>
+              <Route path="/:id">
+                <Moviedetail />
+              </Route>
+              <Route path="/contact-us">
+                <Contactus />
+              </Route>
+            </Switch>
+          </Content>
+          <Footer style={{ textAlign: "center" }}>
+            Ant Design ©2018 Created by Ant UED
+          </Footer>
+        </Layout>
+        {/* <Row>
         <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
           <Card
             hoverable
@@ -82,8 +104,8 @@ function App() {
           </Card>
         </Col>
       </Row> */}
-      , ,
-      {/* <Divider orientation="left">sub-element align left</Divider>
+        , ,
+        {/* <Divider orientation="left">sub-element align left</Divider>
       <Row justify="start">
         <Col span={4}>col-4</Col>
         <Col span={4}>col-4</Col>
@@ -123,7 +145,8 @@ function App() {
         <Col span={4}>col-4</Col>
       </Row> 
       <Col xs={{ span: 7, offset: 2 }} lg={{ span: 5, offset: 1 }}>*/}
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

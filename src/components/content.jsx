@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Spin, Row, Col } from "antd";
 import { ContextContext } from "./context";
 import { Card } from "antd";
-
+import { Link } from "react-router-dom";
 const { Meta } = Card;
 
 export default function Firstcontent() {
@@ -29,19 +29,22 @@ export default function Firstcontent() {
             {folan.map((b) => (
               <>
                 <Col xs={24} sm={12} md={8} xl={6}>
-                  <Card
-                    loading={loading}
-                    hoverable
-                    style={{ width: 240 }}
-                    cover={
-                      <img
-                        alt="example"
-                        src={`https://image.tmdb.org/t/p/w500${b.poster_path}`}
-                      />
-                    }
-                  >
-                    <Meta title={b.original_title} description={b.overview} />
-                  </Card>
+                  <Link to={`/${b.id}`}>
+                    {" "}
+                    <Card
+                      loading={loading}
+                      hoverable
+                      style={{ width: 240 }}
+                      cover={
+                        <img
+                          alt="example"
+                          src={`https://image.tmdb.org/t/p/w500${b.poster_path}`}
+                        />
+                      }
+                    >
+                      <Meta title={b.original_title} description={b.overview} />
+                    </Card>
+                  </Link>
                 </Col>
               </>
             ))}
