@@ -59,3 +59,9 @@
     transform: rotate(360deg);
   }
 }
+element.style {
+  gap: 8px;
+  position: absolute;
+  top: 16px;
+  right: 48px;
+}
