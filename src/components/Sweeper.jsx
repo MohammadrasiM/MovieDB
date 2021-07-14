@@ -62,7 +62,7 @@ export default function Sweeper() {
         >
           {folan?.results?.map((b) => (
             <SwiperSlide>
-              <Link to={`/${b.id}`}>
+              <Link to={`/Moviedetail/${b.id}`}>
                 {" "}
                 <Card
                   style={{ overflow: "hidden", height: 300, width: 170 }}

@@ -14,6 +14,7 @@ import Searchbar from "./components/Searchbar";
 import Slider from "./components/Carousel";
 import Sweeper from "./components/Sweeper";
 import Cast from "./components/Cast";
+import Notfound from "./components/Notfound";
 const { Search } = Input;
 
 const links = [
@@ -77,106 +78,20 @@ function App() {
               <Route path="/upcoming/:id">
                 <Firstcontent />
               </Route>
-              <Route path="/:id">
+              <Route path="/Moviedetail/:id">
                 <Moviedetail />
               </Route>
               <Route exact path="/">
                 <Slider />
                 <Sweeper />
               </Route>
+              <Route component={Notfound}></Route>
             </Switch>
           </Content>
           <Footer style={{ textAlign: "center" }}>
             Ant Design ©2018 Created by Ant UED
           </Footer>
         </Layout>
-        {/* <Row>
-        <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-          <Card
-            hoverable
-            style={{ width: 240 }}
-            cover={
-              <img
-                alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-          >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-        </Col>
-        <Col xs={{ span: 11, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-          <Card
-            hoverable
-            style={{ width: 240 }}
-            cover={
-              <img
-                alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-          >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-        </Col>
-        <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-          <Card
-            hoverable
-            style={{ width: 240 }}
-            cover={
-              <img
-                alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-          >
-            <p>Card content</p>
-            <p>Card content</p>{" "}
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-        </Col>
-      </Row> */}
-        , ,
-        {/* <Divider orientation="left">sub-element align left</Divider>
-      <Row justify="start">
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-      </Row>
-
-      <Divider orientation="left">sub-element align center</Divider>
-      <Row justify="center">
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-      </Row>
-
-      <Divider orientation="left">sub-element align right</Divider>
-      <Row justify="end">
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-      </Row>
-
-      <Divider orientation="left">sub-element monospaced arrangement</Divider>
-      <Row justify="space-between">
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-      </Row>
-
-      <Divider orientation="left">sub-element align full</Divider>
-      <Row justify="space-around">
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-        <Col span={4}>col-4</Col>
-      </Row> 
-      <Col xs={{ span: 7, offset: 2 }} lg={{ span: 5, offset: 1 }}>*/}
       </div>
     </BrowserRouter>
   );

@@ -17,15 +17,33 @@ import SwiperCore, {
   Pagination,
   EffectCoverflow,
 } from "swiper/core";
+import { Table, Typography } from "antd";
+
+const { Text } = Typography;
 const { Meta } = Card;
 SwiperCore.use([EffectCube, Pagination, EffectCoverflow]);
 
 export default function Moviedetail() {
+  const fixedColumns = [
+    {
+      title: "Author",
+      dataIndex: "name",
+      fixed: true,
+      width: 100,
+    },
+    {
+      title: "Reveiw",
+      dataIndex: "description",
+    },
+  ];
+
   const { id } = useParams();
   const [top, setTop] = useState(100);
   const [trail, setTrail] = useState([]);
   const [state, setState] = useState([]);
   const [cast, setCast] = useState([]);
+  const [reveiws, setReveiws] = useState();
+
   React.useEffect(() => {
     fetch(
       ` https://api.themoviedb.org/3/movie/${id}?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
@@ -53,6 +71,16 @@ export default function Moviedetail() {
       .then((response) => response.json())
       .then((data) => {
         setCast(data.cast);
+        console.log(data);
+      });
+  }, []);
+  React.useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setReveiws(data.results);
         console.log(data);
       });
   }, []);
@@ -89,8 +117,9 @@ export default function Moviedetail() {
           </div>{" "}
         </Col>
       </Row>
+
       <Row>
-        <Col span={16} xs={24} sm={12} md={8} xl={6} offset={9}>
+        <Col span={6} xs={24} sm={12} md={8} xl={6} offset={8}>
           {" "}
           <h1>Cast</h1>
           <Swiper
@@ -112,14 +141,14 @@ export default function Moviedetail() {
               <SwiperSlide
                 style={{
                   backgroundColor: "whitesmoke",
-                  paddingBottom: 35,
+                  paddingBottom: 95,
                 }}
               >
                 {" "}
                 <Link to={`/cast/${b.id}`}>
                   {" "}
                   <Card
-                    type="inner"
+                    type="outter"
                     hoverable
                     cover={
                       <img
@@ -139,6 +168,24 @@ export default function Moviedetail() {
               </SwiperSlide>
             ))}
           </Swiper>
+        </Col>
+        <Col span={8}>
+          <h1>Reveiws</h1>
+
+          <Table
+            columns={fixedColumns}
+            dataSource={reveiws?.map((e) => {
+              return { name: e.author, description: e.content };
+            })}
+            pagination={false}
+            scroll={{ x: 200, y: 600 }}
+            bordered
+            summary={() => (
+              <Table.Summary fixed>
+                <Table.Summary.Row></Table.Summary.Row>
+              </Table.Summary>
+            )}
+          />
         </Col>
       </Row>
       <Row>

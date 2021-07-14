@@ -50,7 +50,7 @@ export default function Searchbar() {
           {folan?.results?.map((b) => (
             <Col key={b.id} xs={24} sm={12} md={8} xl={6}>
               {b.poster_path ? (
-                <Link to={`/${b.id}`}>
+                <Link to={`/Moviedetail/${b.id}`}>
                   {" "}
                   <Card
                     style={{ overflow: "hidden", height: 500 }}

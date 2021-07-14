@@ -52,16 +52,16 @@ export default function Firstcontent() {
     //       setLoading(false);
     //     });
     // } else
-      fetch(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=${page}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setFolan(data);
-          setLoading(false);
-          setValue("");
-        });
+    fetch(
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=${page}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setFolan(data);
+        setLoading(false);
+        setValue("");
+      });
   }
 
   React.useEffect(() => {
@@ -77,10 +77,10 @@ export default function Firstcontent() {
         <Row gutter={100}>
           {folan?.results?.map((b) => (
             <Col key={b.id} xs={24} sm={12} md={8} xl={6}>
-              <Link to={`/${b.id}`}>
+              <Link to={`/Moviedetail/${b.id}`}>
                 {" "}
                 <Card
-                style={{overflow:'hidden',height:500}}
+                  style={{ overflow: "hidden", height: 500 }}
                   loading={loading}
                   hoverable
                   cover={

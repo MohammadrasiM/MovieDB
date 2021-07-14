@@ -41,22 +41,20 @@ export default function Castdetail() {
         {" "}
         <Col span={8}>
           {" "}
-          <Affix offsetTop={100}>
-            <Card
-              hoverable
-              style={{ width: 240, height: 350 }}
-              cover={
-                <img
-                  alt="example"
-                  src={
-                    `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
-                      cast.profile_path || cast.poster_path
-                    }` || `https://image.tmdb.org/t/p/w500${cast.poster_path}`
-                  }
-                />
-              }
-            ></Card>
-          </Affix>
+          <Card
+            hoverable
+            style={{ width: 240, height: 350 }}
+            cover={
+              <img
+                alt="example"
+                src={
+                  `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                    cast.profile_path || cast.poster_path
+                  }` || `https://image.tmdb.org/t/p/w500${cast.poster_path}`
+                }
+              />
+            }
+          ></Card>
         </Col>
         <Col span={16}>
           {" "}
@@ -65,6 +63,32 @@ export default function Castdetail() {
             <h1>Biography</h1>
             {cast.biography}
           </div>{" "}
+        </Col>
+      </Row>
+      <Row>
+        <Col span={6}>
+          <h1 style={{ textSizeAdjust: 20 }}>Personal Info</h1>
+          <h2>Known for</h2>
+          {cast.known_for_department}
+          <br />
+          <h2>Gender</h2>
+          {cast.gender === 2 ? "Male" : "Female"}
+          <br />
+          <h2>Birthday</h2>
+          {cast.birthday}
+          {cast.deathday && (
+            <>
+              <h2>Deathday</h2>
+              {cast.deathday}
+            </>
+          )}
+          <br />
+          <h2>Place of birth</h2>
+          {cast.place_of_birth}
+          <h2>Also known as</h2>
+          {cast?.also_known_as?.map((e) => {
+            return <p>{e}</p>;
+          })}
         </Col>
       </Row>
       {/* <Row>
