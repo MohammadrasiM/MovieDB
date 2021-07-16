@@ -15,6 +15,9 @@ import Slider from "./components/Carousel";
 import Sweeper from "./components/Sweeper";
 import Cast from "./components/Cast";
 import Notfound from "./components/Notfound";
+import Tvdetail from "./components/Tv";
+import Trending from "./components/Trending";
+import Picout from "./components/picout";
 const { Search } = Input;
 
 const links = [
@@ -81,9 +84,16 @@ function App() {
               <Route path="/Moviedetail/:id">
                 <Moviedetail />
               </Route>
+              <Route path="/tv/:id">
+                <Tvdetail />
+              </Route>
+              {/* <Route path="/pics/:id">
+                <Picout />
+              </Route> */}
               <Route exact path="/">
                 <Slider />
                 <Sweeper />
+                <Trending />
               </Route>
               <Route component={Notfound}></Route>
             </Switch>

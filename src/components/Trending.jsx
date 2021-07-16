@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import React, { useRef, useState, useContext } from "react";
-import { Spin, Row, Col, Input, Space } from "antd";
+import { Spin, Row, Col, Input, Space, Switch } from "antd";
 import { ContextContext } from "./context";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import { Button } from "antd";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
-
+import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import "./styles.css";
 
 // import Swiper core and required modules
@@ -17,16 +17,15 @@ import SwiperCore, { Pagination, Navigation } from "swiper/core";
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
 
-const { Search } = Input;
 const { Meta } = Card;
 
-export default function Sweeper() {
-  const [searchepage, setSearchpage] = useState();
+export default function Trending() {
   const [folan, setFolan] = useState({});
   const [loading, setLoading] = useState(true);
+  const [day, setday] = useState("week");
   React.useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
+      `https://api.themoviedb.org/3/trending/all/${day}?api_key=70ce45fdad1824ccc3dad6c68ef34779`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -34,26 +33,22 @@ export default function Sweeper() {
         setFolan(data);
         setLoading(false);
       });
-  }, []);
+  }, [day]);
 
   return (
     <>
       <Row gutter={[24, 24]}>
-        <Link to={`/upcoming/:id`}>
-          {" "}
-          <Button
-            type="primary"
-            style={{ bottom: 1, gap: 4, position: "relative", right: 10 }}
-          >
-            See All Upcomin Movies
-          </Button>
-        </Link>
+        <Switch
+          checkedChildren="Trending Today"
+          unCheckedChildren="Trending This Week"
+          onClick={() => (day === "day" ? setday("week") : setday("day"))}
+        />
         <Swiper
           style={{
             backgroundColor: "whitesmoke",
             paddingBottom: 35,
           }}
-          slidesPerView={"5"}
+          slidesPerView={5}
           spaceBetween={30}
           pagination={{ type: "fraction" }}
           navigation={true}
@@ -70,7 +65,7 @@ export default function Sweeper() {
                   hoverable
                   cover={
                     <img
-                      alt={b.original_title}
+                      alt={b.name || b.original_title}
                       src={
                         `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
                           b.profile_path || b.poster_path
@@ -79,7 +74,7 @@ export default function Sweeper() {
                     />
                   }
                 >
-                  <Meta title={b.original_title} />
+                  <Meta title={b.original_title || b.name} />
                 </Card>
               </Link>
             </SwiperSlide>

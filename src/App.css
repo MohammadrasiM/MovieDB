@@ -10,20 +10,25 @@
   transition: color 0.3s;
 }
 
-#components-layout-demo-custom-trigger .trigger:hover {
-  color: #1890ff;
-}
-
 #components-layout-demo-custom-trigger .logo {
   float: left;
   width: 120px;
   height: 32px;
   margin: 16px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(240, 220, 106, 0.3);
+}
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background-color: #f6b700;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background-color: #f6b700;
 }
 
 .site-layout .site-layout-background {
-  background: #fff;
+  background: #f6b700;
 }
 .App-logo {
   height: 40vmin;
@@ -35,22 +40,39 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover {
+  background-color: #f6b700;
+}
+.Ant-menu-item-active {
+  background-color: #f6b700;
+}
 .App-header {
-  background-color: #282c34;
+  background-color: #f26b00;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #f26b00;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #f26b00;
 }
-
+.ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+  color: rgba(255, 255, 255, 0.65);
+  background: #f26b00;
+}
+.ant-layout-header {
+  height: 64px;
+  padding: 0 50px;
+  color: #f26b00;
+  line-height: 64px;
+  background: #f26b00;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

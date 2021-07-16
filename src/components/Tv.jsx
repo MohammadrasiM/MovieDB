@@ -23,7 +23,7 @@ const { Text } = Typography;
 const { Meta } = Card;
 SwiperCore.use([EffectCube, Pagination, EffectCoverflow]);
 
-export default function Moviedetail() {
+export default function Tvdetail() {
   const fixedColumns = [
     {
       title: "Author",
@@ -46,7 +46,7 @@ export default function Moviedetail() {
 
   React.useEffect(() => {
     fetch(
-      ` https://api.themoviedb.org/3/movie/${id}?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
+      ` https://api.themoviedb.org/3/tv/${id}?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -56,7 +56,7 @@ export default function Moviedetail() {
   }, []);
   React.useEffect(() => {
     fetch(
-      ` https://api.themoviedb.org/3/movie/${id}/videos?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
+      ` https://api.themoviedb.org/3/tv/${id}/videos?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -66,7 +66,7 @@ export default function Moviedetail() {
   }, []);
   React.useEffect(() => {
     fetch(
-      ` https://api.themoviedb.org/3/movie/${id}/credits?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
+      ` https://api.themoviedb.org/3/tv/${id}/credits?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -76,7 +76,7 @@ export default function Moviedetail() {
   }, []);
   React.useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
+      `https://api.themoviedb.org/3/tv/${id}/reviews?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -84,7 +84,7 @@ export default function Moviedetail() {
         console.log(data);
       });
   }, []);
-  console.log(Number(state.vote_average) / 2);
+
   return (
     <div className="background">
       <Row>
@@ -106,7 +106,7 @@ export default function Moviedetail() {
             }
           ></Card>
           <br />
-          <h1>{state.original_title}</h1>
+          <h1>{state.name}</h1>
           <a href={state.homepage} target="__blank">
             Homepage
           </a>

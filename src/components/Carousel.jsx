@@ -11,10 +11,15 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 
 // import Swiper core and required modules
-import SwiperCore, { EffectFade, Navigation, Pagination } from "swiper/core";
+import SwiperCore, {
+  EffectFade,
+  Navigation,
+  Autoplay,
+  Pagination,
+} from "swiper/core";
 
 // install Swiper modules
-SwiperCore.use([EffectFade, Navigation, Pagination]);
+SwiperCore.use([EffectFade, Navigation, Autoplay, Pagination]);
 
 export default function Slider() {
   const { value, setValue } = useContext(ContextContext);
@@ -29,11 +34,15 @@ export default function Slider() {
     setValue("Avengers");
   };
   const imageCl = () => {
-    setValue("Rick adn morty");
+    setValue("Rick and morty");
   };
   return (
     <div>
       <Swiper
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
         style={{ maxHeight: 400 }}
         spaceBetween={30}
         effect={"fade"}

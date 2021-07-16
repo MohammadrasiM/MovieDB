@@ -5,7 +5,7 @@ import YouTube from "@u-wave/react-youtube";
 
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import "swiper/components/navigation/navigation.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/effect-cube/effect-cube.min.css";
 import "swiper/components/pagination/pagination.min.css";
@@ -14,14 +14,16 @@ import "./styles.css";
 
 import SwiperCore, {
   EffectCube,
+  Autoplay,
   Pagination,
+  Navigation,
   EffectCoverflow,
 } from "swiper/core";
 const { Meta } = Card;
-SwiperCore.use([EffectCube, Pagination, EffectCoverflow]);
+SwiperCore.use([EffectCube, Autoplay, Pagination, Navigation, EffectCoverflow]);
 export default function Castdetail() {
   const { id } = useParams();
-
+  const [images, setImages] = useState([]);
   const [cast, setCast] = useState([]);
 
   React.useEffect(() => {
@@ -35,6 +37,16 @@ export default function Castdetail() {
       });
   }, []);
 
+  React.useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/person/${id}/images?api_key=70ce45fdad1824ccc3dad6c68ef34779`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setImages(data.profiles);
+        console.log(data);
+      });
+  }, []);
   return (
     <div className="background">
       <Row>
@@ -66,7 +78,7 @@ export default function Castdetail() {
         </Col>
       </Row>
       <Row>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={8} xl={6}>
           <h1 style={{ textSizeAdjust: 20 }}>Personal Info</h1>
           <h2>Known for</h2>
           {cast.known_for_department}
@@ -89,6 +101,36 @@ export default function Castdetail() {
           {cast?.also_known_as?.map((e) => {
             return <p>{e}</p>;
           })}
+        </Col>
+        <Col xs={24} sm={12} md={16} xl={14}>
+          <Swiper
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            className="mySwiper"
+          >
+            {images?.map((g) => {
+              return (
+                <SwiperSlide>
+                  <a
+                    target="_blank"
+                    href={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${g.file_path}`}
+                  >
+                    <img
+                      src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${g.file_path}`}
+                    />
+                  </a>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
         </Col>
       </Row>
       {/* <Row>

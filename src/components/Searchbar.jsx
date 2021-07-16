@@ -26,6 +26,7 @@ export default function Searchbar() {
           setLoading(false);
           setSearchpage(value);
         });
+      setValue("");
     }
   }, [value]);
 
@@ -42,6 +43,118 @@ export default function Searchbar() {
     if (value) fetchMoivez(1);
   }, [value]);
 
+  function type(e) {
+    if (e.media_type === "movie") {
+      return (
+        <Link to={`/Moviedetail/${e.id}`}>
+          {" "}
+          {e.original_title ? (
+            <Card
+              style={{ overflow: "hidden", height: 500 }}
+              loading={loading}
+              hoveraele
+              cover={
+                <img
+                  alt={e.original_title}
+                  src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                    e.profile_path || e.poster_path
+                  }`}
+                />
+              }
+            >
+              <Meta
+                title={e.original_title || e.name}
+                description={e.overview}
+              />
+            </Card>
+          ) : (
+            <Card
+              style={{ overflow: "hidden", height: 500 }}
+              loading={loading}
+              hoveraele
+              cover={
+                <img
+                  alt={e.original_title}
+                  src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                    e.profile_path || e.poster_path
+                  }`}
+                />
+              }
+            >
+              <Meta
+                title={e.original_title || e.name}
+                description={e.overview}
+              />
+            </Card>
+          )}
+        </Link>
+      );
+    } else if (e.media_type === "person") {
+      return (
+        <Link to={`/cast/${e.id}`}>
+          {" "}
+          <Card
+            style={{ overflow: "hidden", height: 500 }}
+            loading={loading}
+            hoverable
+            cover={
+              <img
+                alt={e.original_title}
+                src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                  e.profile_path || e.poster_path
+                }`}
+              />
+            }
+          >
+            <Meta title={e.original_title || e.name} description={e.overview} />
+          </Card>
+        </Link>
+      );
+    }
+    // else if (e.media_type === "tv") {
+    //   <Link to={`/tv/${e.id}`}>
+    //     {" "}
+    //     <Card
+    //       style={{ overflow: "hidden", height: 500 }}
+    //       loading={loading}
+    //       hoveraele
+    //       cover={
+    //         <img
+    //           alt={e.original_title}
+    //           src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+    //             e.profile_path || e.poster_path
+    //           }`}
+    //         />
+    //       }
+    //     >
+    //       <Meta title={e.original_title} description={e.overview} />
+    //     </Card>
+    //   </Link>;
+    // }
+    else {
+      return (
+        <Link to={`/tv/${e.id}`}>
+          {" "}
+          <Card
+            style={{ overflow: "hidden", height: 500 }}
+            loading={loading}
+            hoverable
+            cover={
+              <img
+                alt={e.original_title}
+                src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                  e.profile_path || e.poster_path
+                }`}
+              />
+            }
+          >
+            <Meta title={e.original_title || e.name} description={e.overview} />
+          </Card>
+        </Link>
+      );
+    }
+  }
+
   return (
     <div>
       <Spin spinning={loading}>
@@ -49,45 +162,7 @@ export default function Searchbar() {
         <Row gutter={100}>
           {folan?.results?.map((b) => (
             <Col key={b.id} xs={24} sm={12} md={8} xl={6}>
-              {b.poster_path ? (
-                <Link to={`/Moviedetail/${b.id}`}>
-                  {" "}
-                  <Card
-                    style={{ overflow: "hidden", height: 500 }}
-                    loading={loading}
-                    hoverable
-                    cover={
-                      <img
-                        alt={b.original_title}
-                        src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
-                          b.profile_path || b.poster_path
-                        }`}
-                      />
-                    }
-                  >
-                    <Meta title={b.original_title} description={b.overview} />
-                  </Card>
-                </Link>
-              ) : (
-                <Link to={`/cast/${b.id}`}>
-                  {" "}
-                  <Card
-                    style={{ overflow: "hidden", height: 500 }}
-                    loading={loading}
-                    hoverable
-                    cover={
-                      <img
-                        alt={b.original_title}
-                        src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
-                          b.profile_path || b.poster_path
-                        }`}
-                      />
-                    }
-                  >
-                    <Meta title={b.original_title} description={b.overview} />
-                  </Card>
-                </Link>
-              )}
+              {type(b)}
             </Col>
           ))}
         </Row>
