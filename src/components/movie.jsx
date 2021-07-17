@@ -38,7 +38,7 @@ export default function Moviedetail() {
   ];
 
   const { id } = useParams();
-  const [top, setTop] = useState(100);
+  const [top, setTop] = useState([]);
   const [trail, setTrail] = useState([]);
   const [state, setState] = useState([]);
   const [cast, setCast] = useState([]);
@@ -61,7 +61,6 @@ export default function Moviedetail() {
       .then((response) => response.json())
       .then((data) => {
         setTrail(data.results);
-        console.log(data.results);
       });
   }, []);
   React.useEffect(() => {
@@ -72,6 +71,7 @@ export default function Moviedetail() {
       .then((data) => {
         setCast(data.cast);
         console.log(data);
+        setTop(data.crew);
       });
   }, []);
   React.useEffect(() => {
@@ -81,12 +81,26 @@ export default function Moviedetail() {
       .then((response) => response.json())
       .then((data) => {
         setReveiws(data.results);
-        console.log(data);
       });
   }, []);
-  console.log(Number(state.vote_average) / 2);
+  let lol = top
+    ?.filter((e) => e.job == "Director")
+    .map(({ name }) => ({ name }));
+  console.log(lol);
   return (
-    <div className="background">
+    <div
+      className="background"
+      style={{
+        background:
+          "linear-gradient(rgb(255, 255, 255, 0.5) 100%, rgba(255, 255,255, 0.5)100%)," +
+          "url(" +
+          `https://image.tmdb.org/t/p/w1280${state.backdrop_path}` +
+          ")",
+        backgroundsize: "cover",
+        backgroundposition: "center, right bottom",
+        backgroundrepeat: "no-repeat, no-repeat",
+      }}
+    >
       <Row>
         {" "}
         <Col xs={24} sm={12} md={8} xl={6}>
@@ -106,19 +120,29 @@ export default function Moviedetail() {
             }
           ></Card>
           <br />
-          <h1>{state.original_title}</h1>
+          <h1 className="Otaman-title">{state.original_title}</h1>
           <a href={state.homepage} target="__blank">
             Homepage
           </a>
+          <h3 className="Abriel">Director:{lol.map((e) => e.name)}</h3>
           <br />
-          <h1>Score</h1>
+          <h1 className="Abriel">Score</h1>
           <Rate allowHalf disabled value={Number(state.vote_average) / 2} />
+          <br />
+          <h3 className="Abriel">
+            release date<p>{state.release_date}</p>
+          </h3>
+          <h4 className="Abriel">
+            Genres:
+            {state?.genres?.map((g) => `${g.name},`)}
+          </h4>
+          <h3 className="Abriel">budget:{state.budget}$</h3>
         </Col>
         <Col xs={24} sm={12} md={16} xl={18}>
           {" "}
-          <div>
+          <div className="Cinzel">
             {" "}
-            <h1>OverView</h1>
+            <h1 className="Abriel">OverView</h1>
             {state.overview}
           </div>{" "}
           <Row>
@@ -144,14 +168,15 @@ export default function Moviedetail() {
                   <SwiperSlide
                     style={{
                       backgroundColor: "whitesmoke",
-                      paddingBottom: 95,
+                      paddingBottom: 20,
+                      paddingTop: 0,
                     }}
                   >
                     {" "}
                     <Link to={`/cast/${b.id}`}>
                       {" "}
                       <Card
-                        type="outter"
+                        type="inner"
                         hoverable
                         cover={
                           <img
@@ -179,6 +204,7 @@ export default function Moviedetail() {
               <h1>Reveiws</h1>
 
               <Table
+                className="Atamic-review"
                 columns={fixedColumns}
                 dataSource={reveiws?.map((e) => {
                   return { name: e.author, description: e.content };

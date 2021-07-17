@@ -61,7 +61,6 @@ export default function Tvdetail() {
       .then((response) => response.json())
       .then((data) => {
         setTrail(data.results);
-        console.log(data.results);
       });
   }, []);
   React.useEffect(() => {
@@ -71,7 +70,6 @@ export default function Tvdetail() {
       .then((response) => response.json())
       .then((data) => {
         setCast(data.cast);
-        console.log(data);
       });
   }, []);
   React.useEffect(() => {
@@ -81,12 +79,23 @@ export default function Tvdetail() {
       .then((response) => response.json())
       .then((data) => {
         setReveiws(data.results);
-        console.log(data);
       });
   }, []);
 
   return (
-    <div className="background">
+    <div
+      style={{
+        background:
+          "linear-gradient(rgb(255, 255, 255, 0.5) 100%, rgba(255, 255,255, 0.5)100%)," +
+          "url(" +
+          `https://image.tmdb.org/t/p/w1280${state.backdrop_path}` +
+          ")",
+        backgroundsize: "cover",
+        backgroundposition: "center, right bottom",
+        backgroundrepeat: "no-repeat, no-repeat",
+      }}
+      className="background"
+    >
       <Row>
         {" "}
         <Col xs={24} sm={12} md={8} xl={6}>
@@ -106,19 +115,30 @@ export default function Tvdetail() {
             }
           ></Card>
           <br />
-          <h1>{state.name}</h1>
-          <a href={state.homepage} target="__blank">
+          <h1 className="Otaman-title">{state.name}</h1>
+          <a className="Abriel" href={state.homepage} target="__blank">
             Homepage
           </a>
           <br />
-          <h1>Score</h1>
+          <h1 className="Abriel">Score</h1>
           <Rate allowHalf disabled value={Number(state.vote_average) / 2} />
+          <br />
+          <h3 className="Abriel">
+            First air date<p>{state.first_air_date}</p>
+          </h3>
+          <h4>
+            Genres:
+            {state?.genres?.map((g) => `${g.name},`)}
+          </h4>
+          <h3 className="Abriel">
+            Created by:{state?.created_by?.map((d) => `${d.name},`)}
+          </h3>
         </Col>
         <Col xs={24} sm={12} md={16} xl={18}>
           {" "}
-          <div>
+          <div className="Cinzel">
             {" "}
-            <h1>OverView</h1>
+            <h1 className="Abriel">OverView</h1>
             {state.overview}
           </div>{" "}
           <Row>
@@ -179,6 +199,7 @@ export default function Tvdetail() {
               <h1>Reveiws</h1>
 
               <Table
+                className="Atamic-review"
                 columns={fixedColumns}
                 dataSource={reveiws?.map((e) => {
                   return { name: e.author, description: e.content };

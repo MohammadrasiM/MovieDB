@@ -56,27 +56,53 @@ export default function Trending() {
         >
           {folan?.results?.map((b) => (
             <SwiperSlide>
-              <Link to={`/Moviedetail/${b.id}`}>
-                {" "}
-                <Card
-                  style={{ overflow: "hidden", height: 300, width: 170 }}
-                  type="inner"
-                  loading={loading}
-                  hoverable
-                  cover={
-                    <img
-                      alt={b.name || b.original_title}
-                      src={
-                        `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
-                          b.profile_path || b.poster_path
-                        }` || `https://image.tmdb.org/t/p/w500${b.poster_path}`
-                      }
-                    />
-                  }
-                >
-                  <Meta title={b.original_title || b.name} />
-                </Card>
-              </Link>
+              {b.media_type === "movie" ? (
+                <Link to={`/Moviedetail/${b.id}`}>
+                  {" "}
+                  <Card
+                    style={{ overflow: "hidden", height: 300, width: 170 }}
+                    type="inner"
+                    loading={loading}
+                    hoverable
+                    cover={
+                      <img
+                        alt={b.name || b.original_title}
+                        src={
+                          `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                            b.profile_path || b.poster_path
+                          }` ||
+                          `https://image.tmdb.org/t/p/w500${b.poster_path}`
+                        }
+                      />
+                    }
+                  >
+                    <Meta title={b.original_title || b.name} />
+                  </Card>
+                </Link>
+              ) : (
+                <Link to={`/tv/${b.id}`}>
+                  {" "}
+                  <Card
+                    style={{ overflow: "hidden", height: 300, width: 170 }}
+                    type="inner"
+                    loading={loading}
+                    hoverable
+                    cover={
+                      <img
+                        alt={b.name || b.original_title}
+                        src={
+                          `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                            b.profile_path || b.poster_path
+                          }` ||
+                          `https://image.tmdb.org/t/p/w500${b.poster_path}`
+                        }
+                      />
+                    }
+                  >
+                    <Meta title={b.original_title || b.name} />
+                  </Card>
+                </Link>
+              )}
             </SwiperSlide>
           ))}
         </Swiper>

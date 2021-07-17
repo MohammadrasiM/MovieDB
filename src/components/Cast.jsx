@@ -79,7 +79,9 @@ export default function Castdetail() {
       </Row>
       <Row>
         <Col xs={24} sm={12} md={8} xl={6}>
-          <h1 style={{ textSizeAdjust: 20 }}>Personal Info</h1>
+          <h1 className="Otaman-title" style={{ textSizeAdjust: 20 }}>
+            {cast.name}
+          </h1>
           <h2>Known for</h2>
           {cast.known_for_department}
           <br />
