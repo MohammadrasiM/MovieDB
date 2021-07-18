@@ -44,7 +44,8 @@ export default function Sweeper() {
           <Button
             type="primary"
             style={{
-              bottom: 1,
+              top: 12,
+
               gap: 4,
               position: "relative",
               right: 10,
@@ -54,6 +55,30 @@ export default function Sweeper() {
           </Button>
         </Link>
         <Swiper
+          breakpoints={{
+            200: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+              slidesPerGroup: 2,
+            },
+
+            480: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+              slidesPerGroup: 3,
+            },
+
+            640: {
+              slidesPerView: 4,
+              spaceBetween: 40,
+              slidesPerGroup: 4,
+            },
+            1000: {
+              slidesPerView: 5,
+              spaceBetween: 40,
+              slidesPerGroup: 5,
+            },
+          }}
           style={{
             backgroundColor: "whitesmoke",
             paddingBottom: 35,

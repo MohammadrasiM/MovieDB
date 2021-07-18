@@ -18,6 +18,7 @@ import Notfound from "./components/Notfound";
 import Tvdetail from "./components/Tv";
 import Trending from "./components/Trending";
 import Picout from "./components/picout";
+import useWindowDimensions from "./components/windowsize";
 const { Search } = Input;
 
 const links = [
@@ -28,6 +29,7 @@ const links = [
 const { Header, Content, Footer } = Layout;
 function App() {
   const { setValue } = useContext(ContextContext);
+  const { height, width } = useWindowDimensions();
   return (
     <BrowserRouter>
       <div id="components-layout-demo-custom-trigger">
@@ -35,7 +37,7 @@ function App() {
           <Header>
             <div className="logo" />
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-              {links.map((index) => {
+              {links?.map((index) => {
                 const key = index.name;
                 return (
                   <Menu.Item key={key}>
@@ -46,20 +48,39 @@ function App() {
             </Menu>{" "}
             <Space direction="vertical">
               <Link to="/search/:id">
-                <Search
-                  placeholder="search"
-                  onSearch={(e) => setValue(e)}
-                  style={{
-                    width: 200,
-                    gap: 8,
-                    position: " absolute",
-                    top: 16,
-                    right: 48,
-                  }}
-                />
+                {width < 700 ? (
+                  <>
+                    {" "}
+                    <Search
+                      placeholder="search"
+                      onSearch={(e) => setValue(e)}
+                      style={{
+                        width: 200,
+                        gap: 8,
+                        position: " static",
+                        marginBottom: 30,
+                        right: 48,
+                      }}
+                    />{" "}
+                    <br />
+                  </>
+                ) : (
+                  <Search
+                    placeholder="search"
+                    onSearch={(e) => setValue(e)}
+                    style={{
+                      width: 200,
+                      gap: 8,
+                      position: " absolute",
+                      top: 16,
+                      right: 48,
+                    }}
+                  />
+                )}
               </Link>
             </Space>
           </Header>
+
           <Content style={{ padding: "0 50px" }}>
             <div className="site-layout-content"></div>
             <br />

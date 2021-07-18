@@ -44,6 +44,30 @@ export default function Trending() {
           onClick={() => (day === "day" ? setday("week") : setday("day"))}
         />
         <Swiper
+          breakpoints={{
+            200: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+              slidesPerGroup: 2,
+            },
+
+            480: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+              slidesPerGroup: 3,
+            },
+
+            640: {
+              slidesPerView: 4,
+              spaceBetween: 40,
+              slidesPerGroup: 4,
+            },
+            1000: {
+              slidesPerView: 5,
+              spaceBetween: 40,
+              slidesPerGroup: 5,
+            },
+          }}
           style={{
             backgroundColor: "whitesmoke",
             paddingBottom: 35,

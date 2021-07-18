@@ -271,8 +271,32 @@ export default function Moviedetail() {
           </Row>
           <br />
           <Row>
-            <Col xs={24} sm={20} md={20} xl={20}>
+            <Col xs={24} sm={22} md={22} xl={22}>
               <Swiper
+                breakpoints={{
+                  200: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                    slidesPerGroup: 2,
+                  },
+
+                  480: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                    slidesPerGroup: 2,
+                  },
+
+                  640: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    slidesPerGroup: 3,
+                  },
+                  1000: {
+                    slidesPerView: 5,
+                    spaceBetween: 40,
+                    slidesPerGroup: 5,
+                  },
+                }}
                 style={{
                   backgroundColor: "whitesmoke",
                   paddingBottom: 35,
