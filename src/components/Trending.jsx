@@ -49,8 +49,10 @@ export default function Trending() {
             paddingBottom: 35,
           }}
           slidesPerView={5}
+          slidesPerGroup={5}
+          loopFillGroupWithBlank={true}
           spaceBetween={30}
-          pagination={{ type: "fraction" }}
+          pagination={{ type: "fraction", clickable: true }}
           navigation={true}
           className="mySwiper"
         >

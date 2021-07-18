@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/effect-cube/effect-cube.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/effect-coverflow/effect-coverflow.min.css";
@@ -16,12 +17,13 @@ import SwiperCore, {
   EffectCube,
   Pagination,
   EffectCoverflow,
+  Navigation,
 } from "swiper/core";
 import { Table, Typography } from "antd";
 
 const { Text } = Typography;
 const { Meta } = Card;
-SwiperCore.use([EffectCube, Pagination, EffectCoverflow]);
+SwiperCore.use([EffectCube, Navigation, Pagination, EffectCoverflow]);
 
 export default function Moviedetail() {
   const fixedColumns = [
@@ -43,7 +45,7 @@ export default function Moviedetail() {
   const [state, setState] = useState([]);
   const [cast, setCast] = useState([]);
   const [reveiws, setReveiws] = useState();
-
+  const [recomendation, setRecomendation] = useState([]);
   React.useEffect(() => {
     fetch(
       ` https://api.themoviedb.org/3/movie/${id}?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
@@ -51,9 +53,20 @@ export default function Moviedetail() {
       .then((response) => response.json())
       .then((data) => {
         setState(data);
-        console.log(data);
       });
-  }, []);
+  }, [id]);
+  React.useEffect(() => {
+    fetch(
+      `  https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1
+      `
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setRecomendation(data.results);
+        console.log(data.results);
+      });
+  }, [id]);
+
   React.useEffect(() => {
     fetch(
       ` https://api.themoviedb.org/3/movie/${id}/videos?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
@@ -62,7 +75,7 @@ export default function Moviedetail() {
       .then((data) => {
         setTrail(data.results);
       });
-  }, []);
+  }, [id]);
   React.useEffect(() => {
     fetch(
       ` https://api.themoviedb.org/3/movie/${id}/credits?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
@@ -73,7 +86,7 @@ export default function Moviedetail() {
         console.log(data);
         setTop(data.crew);
       });
-  }, []);
+  }, [id]);
   React.useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
@@ -82,7 +95,7 @@ export default function Moviedetail() {
       .then((data) => {
         setReveiws(data.results);
       });
-  }, []);
+  }, [id]);
   let lol = top
     ?.filter((e) => e.job == "Director")
     .map(({ name }) => ({ name }));
@@ -125,10 +138,10 @@ export default function Moviedetail() {
             Homepage
           </a>
           <h3 className="Abriel">Director:{lol.map((e) => e.name)}</h3>
-          <br />
-          <h1 className="Abriel">Score</h1>
-          <Rate allowHalf disabled value={Number(state.vote_average) / 2} />
-          <br />
+          <h1 className="Abriel">
+            Score{" "}
+            <Rate allowHalf disabled value={Number(state.vote_average) / 2} />{" "}
+          </h1>
           <h3 className="Abriel">
             release date<p>{state.release_date}</p>
           </h3>
@@ -164,7 +177,7 @@ export default function Moviedetail() {
                 pagination={true}
                 className="mySwiper"
               >
-                {cast.map((b) => (
+                {cast?.map((b) => (
                   <SwiperSlide
                     style={{
                       backgroundColor: "whitesmoke",
@@ -210,7 +223,7 @@ export default function Moviedetail() {
                   return { name: e.author, description: e.content };
                 })}
                 pagination={false}
-                scroll={{ x: 200, y: 600 }}
+                scroll={{ x: 200, y: 400 }}
                 bordered
                 summary={() => (
                   <Table.Summary fixed>
@@ -220,33 +233,117 @@ export default function Moviedetail() {
               />
             </Col>
           </Row>
+          <br></br>
           <Row>
-            {" "}
-            <Swiper
-              style={{ width: 350 }}
-              effect={"cube"}
-              grabCursor={true}
-              cubeEffect={{
-                shadow: true,
-                slideShadows: true,
-                shadowOffset: 20,
-                shadowScale: 0.94,
-              }}
-              pagination={true}
-              className="mySwiper"
-            >
-              {trail.map((a) => (
-                <SwiperSlide
-                  style={{
-                    backgroundColor: "whitesmoke",
-                    paddingBottom: 35,
-                  }}
-                >
-                  {" "}
-                  <YouTube video={a.key} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            <Col xs={24} sm={12} md={8} xl={6}>
+              {" "}
+              <Swiper
+                style={{ width: 350 }}
+                effect={"cube"}
+                grabCursor={true}
+                cubeEffect={{
+                  shadow: true,
+                  slideShadows: true,
+                  shadowOffset: 20,
+                  shadowScale: 0.94,
+                }}
+                pagination={true}
+                className="mySwiper"
+              >
+                {trail.map((a) => (
+                  <SwiperSlide
+                    style={{
+                      background:
+                        "linear-gradient(rgb(255, 255, 255, 0.5) 100%, rgba(255, 255,255, 0.5)100%)," +
+                        "url(" +
+                        `https://image.tmdb.org/t/p/w1280${state.backdrop_path}` +
+                        ")",
+                      paddingBottom: 35,
+                      paddingTop: 0,
+                    }}
+                  >
+                    {" "}
+                    <YouTube video={a.key} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </Col>
+          </Row>
+          <br />
+          <Row>
+            <Col xs={24} sm={20} md={20} xl={20}>
+              <Swiper
+                style={{
+                  backgroundColor: "whitesmoke",
+                  paddingBottom: 35,
+                }}
+                slidesPerView={5}
+                slidesPerGroup={5}
+                loopFillGroupWithBlank={true}
+                spaceBetween={30}
+                pagination={{ type: "fraction", clickable: true }}
+                navigation={true}
+                className="mySwiper"
+              >
+                {recomendation?.map((b) => (
+                  <SwiperSlide>
+                    {b.media_type === "movie" ? (
+                      <Link to={`/Moviedetail/${b.id}`}>
+                        {" "}
+                        <Card
+                          style={{
+                            overflow: "visible",
+                            height: 300,
+                            width: 170,
+                          }}
+                          type="inner"
+                          hoverable
+                          cover={
+                            <img
+                              alt={b.name || b.original_title}
+                              src={
+                                `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                                  b.profile_path || b.poster_path
+                                }` ||
+                                `https://image.tmdb.org/t/p/w500${b.poster_path}`
+                              }
+                            />
+                          }
+                        >
+                          <Meta title={b.original_title || b.name} />
+                        </Card>
+                      </Link>
+                    ) : (
+                      <Link to={`/tv/${b.id}`}>
+                        {" "}
+                        <Card
+                          style={{
+                            overflow: "hidden",
+                            height: 300,
+                            width: 170,
+                          }}
+                          type="inner"
+                          hoverable
+                          cover={
+                            <img
+                              alt={b.name || b.original_title}
+                              src={
+                                `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                                  b.profile_path || b.poster_path
+                                }` ||
+                                `https://image.tmdb.org/t/p/w500${b.poster_path}`
+                              }
+                            />
+                          }
+                        >
+                          <Meta title={b.original_title || b.name} />
+                        </Card>
+                      </Link>
+                    )}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </Col>
           </Row>
         </Col>
       </Row>

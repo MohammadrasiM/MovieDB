@@ -12,10 +12,10 @@ import "swiper/components/navigation/navigation.min.css";
 import "./styles.css";
 
 // import Swiper core and required modules
-import SwiperCore, { Pagination, Navigation } from "swiper/core";
+import SwiperCore, { Pagination, Navigation, Autoplay } from "swiper/core";
 
 // install Swiper modules
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 const { Search } = Input;
 const { Meta } = Card;
@@ -43,7 +43,12 @@ export default function Sweeper() {
           {" "}
           <Button
             type="primary"
-            style={{ bottom: 1, gap: 4, position: "relative", right: 10 }}
+            style={{
+              bottom: 1,
+              gap: 4,
+              position: "relative",
+              right: 10,
+            }}
           >
             See All Upcomin Movies
           </Button>
@@ -53,9 +58,15 @@ export default function Sweeper() {
             backgroundColor: "whitesmoke",
             paddingBottom: 35,
           }}
+          autoplay={{
+            delay: 8500,
+            disableOnInteraction: false,
+          }}
           slidesPerView={"5"}
+          slidesPerGroup={5}
+          loopFillGroupWithBlank={true}
           spaceBetween={30}
-          pagination={{ type: "fraction" }}
+          pagination={{ clickable: true }}
           navigation={true}
           className="mySwiper"
         >

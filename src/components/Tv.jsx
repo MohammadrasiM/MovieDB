@@ -43,7 +43,7 @@ export default function Tvdetail() {
   const [state, setState] = useState([]);
   const [cast, setCast] = useState([]);
   const [reveiws, setReveiws] = useState();
-
+  const [recomendation, setRecomendation] = useState([]);
   React.useEffect(() => {
     fetch(
       ` https://api.themoviedb.org/3/tv/${id}?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
@@ -53,7 +53,18 @@ export default function Tvdetail() {
         setState(data);
         console.log(data);
       });
-  }, []);
+  }, [id]);
+  React.useEffect(() => {
+    fetch(
+      `  https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1
+      `
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setRecomendation(data.results);
+        console.log(data.results);
+      });
+  }, [id]);
   React.useEffect(() => {
     fetch(
       ` https://api.themoviedb.org/3/tv/${id}/videos?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
@@ -62,7 +73,7 @@ export default function Tvdetail() {
       .then((data) => {
         setTrail(data.results);
       });
-  }, []);
+  }, [id]);
   React.useEffect(() => {
     fetch(
       ` https://api.themoviedb.org/3/tv/${id}/credits?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
@@ -71,7 +82,7 @@ export default function Tvdetail() {
       .then((data) => {
         setCast(data.cast);
       });
-  }, []);
+  }, [id]);
   React.useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/tv/${id}/reviews?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
@@ -80,7 +91,7 @@ export default function Tvdetail() {
       .then((data) => {
         setReveiws(data.results);
       });
-  }, []);
+  }, [id]);
 
   return (
     <div
@@ -242,6 +253,82 @@ export default function Tvdetail() {
                 </SwiperSlide>
               ))}
             </Swiper>
+          </Row>
+          <br />
+          <Row>
+            <Col xs={24} sm={20} md={20} xl={20}>
+              <Swiper
+                style={{
+                  backgroundColor: "whitesmoke",
+                  paddingBottom: 35,
+                }}
+                slidesPerView={5}
+                slidesPerGroup={5}
+                loopFillGroupWithBlank={true}
+                spaceBetween={30}
+                pagination={{ type: "fraction", clickable: true }}
+                navigation={true}
+                className="mySwiper"
+              >
+                {recomendation?.map((b) => (
+                  <SwiperSlide>
+                    {b.media_type === "movie" ? (
+                      <Link to={`/Moviedetail/${b.id}`}>
+                        {" "}
+                        <Card
+                          style={{
+                            overflow: "visible",
+                            height: 300,
+                            width: 170,
+                          }}
+                          type="inner"
+                          hoverable
+                          cover={
+                            <img
+                              alt={b.name || b.original_title}
+                              src={
+                                `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                                  b.profile_path || b.poster_path
+                                }` ||
+                                `https://image.tmdb.org/t/p/w500${b.poster_path}`
+                              }
+                            />
+                          }
+                        >
+                          <Meta title={b.original_title || b.name} />
+                        </Card>
+                      </Link>
+                    ) : (
+                      <Link to={`/tv/${b.id}`}>
+                        {" "}
+                        <Card
+                          style={{
+                            overflow: "hidden",
+                            height: 300,
+                            width: 170,
+                          }}
+                          type="inner"
+                          hoverable
+                          cover={
+                            <img
+                              alt={b.name || b.original_title}
+                              src={
+                                `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                                  b.profile_path || b.poster_path
+                                }` ||
+                                `https://image.tmdb.org/t/p/w500${b.poster_path}`
+                              }
+                            />
+                          }
+                        >
+                          <Meta title={b.original_title || b.name} />
+                        </Card>
+                      </Link>
+                    )}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </Col>
           </Row>
         </Col>
       </Row>
