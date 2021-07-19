@@ -137,7 +137,7 @@ export default function Tvdetail() {
           <h3 className="Abriel">
             First air date<p>{state.first_air_date}</p>
           </h3>
-          <h4>
+          <h4 className="Abriel">
             Genres:
             {state?.genres?.map((g) => `${g.name},`)}
           </h4>

@@ -30,12 +30,13 @@ export default function Moviedetail() {
     {
       title: "Author",
       dataIndex: "name",
-      fixed: true,
-      width: 100,
+
+      width: 60,
     },
     {
       title: "Reveiw",
       dataIndex: "description",
+      fixed: true,
     },
   ];
 
@@ -134,7 +135,7 @@ export default function Moviedetail() {
           ></Card>
           <br />
           <h1 className="Otaman-title">{state.original_title}</h1>
-          <a href={state.homepage} target="__blank">
+          <a className="Abriel" href={state.homepage} target="__blank">
             Homepage
           </a>
           <h3 className="Abriel">Director:{lol.map((e) => e.name)}</h3>
@@ -235,7 +236,7 @@ export default function Moviedetail() {
           </Row>
           <br></br>
           <Row>
-            <Col xs={24} sm={12} md={8} xl={6}>
+            <Col xs={24} sm={24} md={24} xl={24}>
               {" "}
               <Swiper
                 style={{ width: 350 }}
