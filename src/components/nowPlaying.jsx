@@ -9,7 +9,7 @@ import "swiper/components/navigation/navigation.min.css";
 import "./styles.css";
 
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
-import "reactjs-popup/dist/index.css";
+
 import You from "./youtube";
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
