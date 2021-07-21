@@ -19,6 +19,7 @@ import Tvdetail from "./components/Tv";
 import Trending from "./components/Trending";
 import Picout from "./components/picout";
 import useWindowDimensions from "./components/windowsize";
+import NowPlaying from "./components/nowPlaying";
 const { Search } = Input;
 
 const links = [
@@ -110,6 +111,7 @@ function App() {
                 <Slider />
                 <Sweeper />
                 <Trending />
+                <NowPlaying />
               </Route>
               <Route component={Notfound}></Route>
             </Switch>

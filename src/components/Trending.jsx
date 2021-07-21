@@ -1,14 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import React, { useRef, useState, useContext } from "react";
-import { Spin, Row, Col, Input, Space, Switch } from "antd";
-import { ContextContext } from "./context";
+import React, { useState } from "react";
+import { Row, Switch } from "antd";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
-import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import "./styles.css";
 
 // import Swiper core and required modules

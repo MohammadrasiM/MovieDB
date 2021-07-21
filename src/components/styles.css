@@ -79,3 +79,46 @@ body {
   background-color: #f6b700;
   color: white;
 }
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+.container .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  /* background-color: #555;
+  color: white; */
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  width: 0;
+
+  border-top: 50px solid transparent;
+  border-left: 100px solid rgba(79, 87, 74, 0.466);
+  border-bottom: 50px solid transparent;
+}
+
+.container .btn:hover {
+  /* background-color:black; */
+}
+
+.picture {
+  z-index: 0;
+}

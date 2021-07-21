@@ -56,9 +56,11 @@ export default function Searchbar() {
               cover={
                 <img
                   alt={e.original_title}
-                  src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
-                    e.profile_path || e.poster_path
-                  }`}
+                  src={
+                    e.poster_path
+                      ? `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${e.poster_path}`
+                      : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                  }
                 />
               }
             >
@@ -100,9 +102,11 @@ export default function Searchbar() {
             cover={
               <img
                 alt={e.original_title}
-                src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
-                  e.profile_path || e.poster_path
-                }`}
+                src={
+                  e.profile_path
+                    ? `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${e.profile_path}`
+                    : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                }
               />
             }
           >

@@ -37,7 +37,7 @@ export default function Castdetail() {
   }, []);
   React.useEffect(() => {
     fetch(
-      ` https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
+      ` https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -177,10 +177,16 @@ export default function Castdetail() {
             </tr>
             {works
               ?.sort((a, b) => {
-                if (a.release_date < b.release_date) {
+                if (
+                  a.release_date < b.release_date ||
+                  b.first_air_date > a.first_air_date
+                ) {
                   return 1;
                 }
-                if (a.release_date > b.release_date) {
+                if (
+                  a.release_date > b.release_date ||
+                  b.first_air_date < a.first_air_date
+                ) {
                   return -1;
                 }
                 return 0;
@@ -194,7 +200,9 @@ export default function Castdetail() {
                       borderCollapse: "collapse",
                     }}
                   >
-                    {d.release_date ? d.release_date : "no Date"}
+                    {d.release_date || d.first_air_date
+                      ? d.release_date || d.first_air_date
+                      : "no Date"}
                   </td>{" "}
                   <td
                     className="Cinzel"
@@ -203,8 +211,13 @@ export default function Castdetail() {
                       borderCollapse: "collapse",
                     }}
                   >
-                    {" "}
-                    <Link to={`/Moviedetail/${d.id}`}>{d.original_title}</Link>
+                    {d.original_title ? (
+                      <Link to={`/Moviedetail/${d.id}`}>
+                        {d.original_title}
+                      </Link>
+                    ) : (
+                      <Link to={`/tv/${d.id}`}>{d.name}</Link>
+                    )}
                   </td>
                   <td
                     className="Cinzel"
