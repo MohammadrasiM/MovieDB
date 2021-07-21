@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import React, { useState } from "react";
-import { Row, Switch } from "antd";
+import { Row, Select, Radio, Divider } from "antd";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
 import "swiper/swiper.min.css";
@@ -11,53 +11,50 @@ import "./styles.css";
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
 
 import You from "./youtube";
+import Youtv from "./Youtubetv";
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
-
+const { Option } = Select;
 const { Meta } = Card;
 
 export default function NowPlaying() {
   const [loading, setLoading] = useState(true);
   const [now, setNeow] = useState([]);
-  const ide = [];
+  const [tv, setTv] = useState([]);
+  const [size, setSize] = useState();
   React.useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/now_playing?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
     )
       .then((response) => response.json())
       .then((data) => {
         setNeow(data.results);
         setLoading(false);
+        setSize(data.results);
+      });
+  }, []);
+  React.useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/tv/popular?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setTv(data.results);
+        console.log(data);
       });
   }, []);
 
-  // const [yo, setYo] = useState([]);
-  // React.useEffect(() => {
-  //   ide?.map((e) => {
-  //     fetch(
-  //       ` https://api.themoviedb.org/3/movie/${e}/videos?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&total_results=1`
-  //     )
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setYo(data?.results);
-  //         console.log(data?.results);
-  //       });
-  //   });
-  // }, []);
-  // console.log(yo);
+  const handleSizeChange = (e) => {
+    setSize(e.target.value);
+  };
   return (
     <Row gutter={[24, 24]}>
-      <h1
-        style={{
-          top: 12,
+      <Divider></Divider>
+      <Radio.Group value={size} onChange={handleSizeChange}>
+        <Radio.Button value={now}>Upcoming Movies</Radio.Button>
+        <Radio.Button value={tv}>Tv</Radio.Button>
+      </Radio.Group>
 
-          gap: 4,
-          position: "relative",
-          right: 10,
-        }}
-      >
-        Latest trailres
-      </h1>{" "}
       <Swiper
         breakpoints={{
           200: {
@@ -95,28 +92,51 @@ export default function NowPlaying() {
         navigation={true}
         className="mySwiper"
       >
-        {now?.map((b) => (
-          <SwiperSlide>
-            {" "}
-            <Card
-              style={{ overflow: "visible", height: 190, width: 300 }}
-              type="inner"
-              loading={loading}
-              hoverable
-              cover={
-                <div className="container">
-                  {" "}
-                  <You id={b.id} />
-                </div>
-              }
-            >
-              <Link to={`/Moviedetail/${b.id}`}>
+        {size === now
+          ? size?.map((b) => (
+              <SwiperSlide>
                 {" "}
-                <Meta title={b.original_title || b.name} />
-              </Link>
-            </Card>
-          </SwiperSlide>
-        ))}
+                <Card
+                  style={{ overflow: "visible", height: 190, width: 300 }}
+                  type="inner"
+                  loading={loading}
+                  hoverable
+                  cover={
+                    <div className="container">
+                      {" "}
+                      <You id={b.id} />
+                    </div>
+                  }
+                >
+                  <Link to={`/Moviedetail/${b.id}`}>
+                    {" "}
+                    <Meta title={b.original_title || b.name} />
+                  </Link>
+                </Card>
+              </SwiperSlide>
+            ))
+          : size?.map((b) => (
+              <SwiperSlide>
+                {" "}
+                <Card
+                  style={{ overflow: "visible", height: 190, width: 300 }}
+                  type="inner"
+                  loading={loading}
+                  hoverable
+                  cover={
+                    <div className="container">
+                      {" "}
+                      <Youtv id={b.id} />
+                    </div>
+                  }
+                >
+                  <Link to={`/tv/${b.id}`}>
+                    {" "}
+                    <Meta title={b.original_title || b.name} />
+                  </Link>
+                </Card>
+              </SwiperSlide>
+            ))}
       </Swiper>
     </Row>
   );
