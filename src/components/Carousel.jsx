@@ -1,13 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { ContextContext } from "./context";
+
 // Import Swiper styles
 import "swiper/swiper.min.css";
 import "swiper/components/effect-fade/effect-fade.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./styles.css";
 
 // import Swiper core and required modules
@@ -22,19 +22,19 @@ import SwiperCore, {
 SwiperCore.use([EffectFade, Navigation, Autoplay, Pagination]);
 
 export default function Slider() {
-  const { value, setValue } = useContext(ContextContext);
+  const history = useHistory();
 
   const imageClick = () => {
-    setValue("star wars");
+    history.push(`/search?query=star%20wars`);
   };
   const imageClic = () => {
-    setValue("the lord of the rings");
+    history.push(`/search?query=the%20lord%20of%20the%20rings`);
   };
   const imageCli = () => {
-    setValue("Avengers");
+    history.push(`/search?query=Avengers`);
   };
   const imageCl = () => {
-    setValue("Rick and morty");
+    history.push(`/search?query=rick%20and%20morty`);
   };
   return (
     <div>
@@ -53,7 +53,7 @@ export default function Slider() {
         className="mySwiper"
       >
         <SwiperSlide>
-          <Link to={"/search"}>
+          <Link to={"/search?query=star%20wars"}>
             {" "}
             <img
               src="https://wallpaperaccess.com/full/124631.jpg"
@@ -62,7 +62,7 @@ export default function Slider() {
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link to={"/search"}>
+          <Link to={"/search?query=the%20lord%20of%20the%20rings"}>
             <img
               src="https://wallpaperaccess.com/full/160365.jpg"
               onClick={() => imageClic()}
@@ -70,7 +70,7 @@ export default function Slider() {
           </Link>{" "}
         </SwiperSlide>
         <SwiperSlide>
-          <Link to={"/search"}>
+          <Link to={"/search?query=Avengers"}>
             <img
               src="https://wallpaperaccess.com/full/4674.jpg"
               onClick={() => imageCli()}
@@ -78,7 +78,7 @@ export default function Slider() {
           </Link>{" "}
         </SwiperSlide>
         <SwiperSlide>
-          <Link to={"/search"}>
+          <Link to={"/search?query=rick%20and%20morty"}>
             <img
               src="https://wallpaperaccess.com/full/238268.jpg"
               onClick={() => imageCl()}

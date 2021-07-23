@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState } from "react";
 import { Spin, Row, Col, Input, Space } from "antd";
-import { ContextContext } from "./context";
+
 import { Card } from "antd";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
@@ -94,6 +94,7 @@ export default function Sweeper() {
           pagination={{ clickable: true }}
           navigation={true}
           className="mySwiper"
+          loop
         >
           {folan?.results?.map((b) => (
             <SwiperSlide>

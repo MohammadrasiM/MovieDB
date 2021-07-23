@@ -10,7 +10,7 @@ export default function Youtv({ id }) {
     )
       .then((response) => response.json())
       .then((data) => {
-        setTrail(data.results[0]);
+        setTrail(data?.results[0]);
       });
   }, [id]);
   return (

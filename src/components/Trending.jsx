@@ -76,6 +76,7 @@ export default function Trending() {
           pagination={{ type: "fraction", clickable: true }}
           navigation={true}
           className="mySwiper"
+          loop
         >
           {folan?.results?.map((b) => (
             <SwiperSlide>

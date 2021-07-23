@@ -1,18 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useHistory } from "react";
 import { Spin, Row, Col, Input, Space } from "antd";
-import { ContextContext } from "./context";
+
 import { Card } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Pagination } from "antd";
 
 const { Search } = Input;
 const { Meta } = Card;
 
 export default function Searchbar() {
-  const { value, setValue } = useContext(ContextContext);
+  const location = useLocation();
   const [searchepage, setSearchpage] = useState();
   const [folan, setFolan] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const value = new URLSearchParams(location.search).get("query");
 
   const baseapiUrl =
     "https://api.themoviedb.org/3/search/multi?api_key=70ce45fdad1824ccc3dad6c68ef34779";
@@ -26,7 +28,6 @@ export default function Searchbar() {
           setLoading(false);
           setSearchpage(value);
         });
-      setValue("");
     }
   }, [value]);
 

@@ -1,13 +1,13 @@
-import React, { useState, createContext } from "react";
+// import React, { useState, createContext } from "react";
 
-export const ContextContext = createContext();
+// export const ContextContext = createContext();
 
-export default function ContextProvider({ children }) {
-  const [value, setValue] = useState("");
-  console.log(value);
-  return (
-    <ContextContext.Provider value={{ value, setValue }}>
-      {children}
-    </ContextContext.Provider>
-  );
-}
+// export default function ContextProvider({ children }) {
+//   const [value, setValue] = useState("");
+//   console.log(value);
+//   return (
+//     <ContextContext.Provider value={{ value, setValue }}>
+//       {children}
+//     </ContextContext.Provider>
+//   );
+// }

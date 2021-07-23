@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Spin, Row, Col, Input, Space } from "antd";
-import { ContextContext } from "./context";
+
 import { Card } from "antd";
 import { Link } from "react-router-dom";
 import { Pagination } from "antd";
@@ -9,7 +9,6 @@ const { Search } = Input;
 const { Meta } = Card;
 
 export default function Firstcontent() {
-  const { value, setValue } = useContext(ContextContext);
   const [searchepage, setSearchpage] = useState();
   const [folan, setFolan] = useState({});
   const [loading, setLoading] = useState(true);
@@ -60,7 +59,6 @@ export default function Firstcontent() {
         console.log(data);
         setFolan(data);
         setLoading(false);
-        setValue("");
       });
   }
 

@@ -70,24 +70,21 @@ export default function NowPlaying() {
           },
 
           640: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            slidesPerGroup: 3,
+          },
+          1000: {
             slidesPerView: 4,
             spaceBetween: 40,
             slidesPerGroup: 4,
-          },
-          1000: {
-            slidesPerView: 5,
-            spaceBetween: 40,
-            slidesPerGroup: 5,
           },
         }}
         style={{
           backgroundColor: "whitesmoke",
           paddingBottom: 35,
         }}
-        slidesPerView={5}
-        slidesPerGroup={5}
         loopFillGroupWithBlank={true}
-        spaceBetween={30}
         pagination={{ type: "fraction", clickable: true }}
         navigation={true}
         className="mySwiper"
