@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import React, { useRef, useState } from "react";
-import { Spin, Row, Col, Input, Space } from "antd";
+import React, { useState } from "react";
+import { Row, Input } from "antd";
 
 import { Card } from "antd";
 import { Link } from "react-router-dom";
@@ -21,7 +21,9 @@ const { Search } = Input;
 const { Meta } = Card;
 
 export default function Sweeper() {
-  const [searchepage, setSearchpage] = useState();
+  const [background, setBackground] = useState(
+    "https://wallpaperaccess.com/full/676037.jpg"
+  );
   const [folan, setFolan] = useState({});
   const [loading, setLoading] = useState(true);
   React.useEffect(() => {
@@ -37,7 +39,7 @@ export default function Sweeper() {
   }, []);
 
   return (
-    <>
+    <div>
       <Row gutter={[24, 24]}>
         <Link to={`/upcoming/:id`}>
           {" "}
@@ -80,8 +82,12 @@ export default function Sweeper() {
             },
           }}
           style={{
-            backgroundColor: "whitesmoke",
+            paddingTop: 35,
+            backgroundImage: `url(${background})`,
             paddingBottom: 35,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: " center",
           }}
           autoplay={{
             delay: 8500,
@@ -97,32 +103,71 @@ export default function Sweeper() {
           loop
         >
           {folan?.results?.map((b) => (
-            <SwiperSlide>
-              <Link to={`/Moviedetail/${b.id}`}>
-                {" "}
-                <Card
-                  style={{ overflow: "hidden", height: 300, width: 170 }}
-                  type="inner"
-                  loading={loading}
-                  hoverable
-                  cover={
-                    <img
-                      alt={b.original_title}
-                      src={
-                        `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
-                          b.profile_path || b.poster_path
-                        }` || `https://image.tmdb.org/t/p/w500${b.poster_path}`
-                      }
-                    />
-                  }
+            <div
+              style={{
+                aspectRatio: "2 / 3",
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                pointerEvents: "none",
+                top: "0",
+                background:
+                  "linear-gradient(\n      to top,\n      #030d18e3,\n      #030d1875,\n      rgb(12 41 37 / 0%)\n    )",
+                zIndex: "2",
+              }}
+            >
+              <SwiperSlide
+                style={{
+                  aspectRatio: "2 / 3",
+                }}
+              >
+                <Link
+                  to={`/Moviedetail/${b.id}`}
+                  style={{
+                    aspectRatio: "2 / 3",
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    position: "relative",
+                  }}
                 >
-                  <Meta title={b.original_title} />
-                </Card>
-              </Link>
-            </SwiperSlide>
+                  {" "}
+                  <Card
+                    style={{
+                      // aspectRatio: "2 / 3",
+                      overflow: "hidden",
+                      height: "100%",
+                      width: "100%",
+                    }}
+                    type="inner"
+                    loading={loading}
+                    hoverable
+                    cover={
+                      <img
+                        onMouseEnter={(e) => setBackground(e.target.src)}
+                        style={{
+                          aspectRatio: "2 / 3",
+                          width: "100%",
+                          position: "absolute",
+                          background:
+                            "linear-gradient(\n      to top,\n      #030d18e3,\n      #030d1875,\n      rgb(12 41 37 / 0%)\n    )",
+                          zIndex: "2",
+                        }}
+                        alt={b.original_title}
+                        src={`https://www.themoviedb.org/t/p/w780${
+                          b.profile_path || b.poster_path
+                        }`}
+                      />
+                    }
+                  >
+                    <Meta title={b.original_title} />
+                  </Card>
+                </Link>
+              </SwiperSlide>
+            </div>
           ))}
         </Swiper>
       </Row>
-    </>
+    </div>
   );
 }

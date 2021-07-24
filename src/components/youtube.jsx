@@ -1,10 +1,6 @@
-import React, { useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Affix, Card, Row, Col, Rate } from "antd";
-import YouTube from "@u-wave/react-youtube";
+import React, { useState } from "react";
 
-import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
+import YouTube from "@u-wave/react-youtube";
 
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
@@ -26,7 +22,7 @@ export default function You({ id }) {
   }, [id]);
   return (
     <div>
-      <YouTube video={trail.key} />
+      <YouTube video={trail?.key} />
     </div>
   );
 }

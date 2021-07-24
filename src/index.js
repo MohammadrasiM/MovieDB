@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { ConfigProvider } from "antd";
 import faIR from "antd/lib/locale/fa_IR";
 import { BrowserRouter } from "react-router-dom";
+import UserProvider from "./components/context";
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ConfigProvider direction locale={faIR}>
-        <App />
-      </ConfigProvider>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <ConfigProvider direction locale={faIR}>
+          <App />
+        </ConfigProvider>
+      </BrowserRouter>
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

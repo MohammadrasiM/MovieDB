@@ -81,7 +81,7 @@ export default function NowPlaying() {
           },
         }}
         style={{
-          backgroundColor: "whitesmoke",
+          backgroundColor: "#030d18",
           paddingBottom: 35,
         }}
         loopFillGroupWithBlank={true}

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Affix, Card, Row, Col, Rate } from "antd";
+import { Card, Row, Col, Rate } from "antd";
 import YouTube from "@u-wave/react-youtube";
 
 import { Link } from "react-router-dom";

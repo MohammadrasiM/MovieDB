@@ -1,11 +1,10 @@
-import React, { Component, useState } from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import React, { useState } from "react";
+import { Layout, Menu } from "antd";
 import "./App.css";
-import { Row, Col, Divider } from "antd";
-import { Card } from "antd";
+
 import Firstcontent from "./components/content";
 import { Input, Space } from "antd";
-import { BrowserRouter, Link, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
 import Contactus from "./components/Contactus";
 import Moviedetail from "./components/movie";
@@ -17,26 +16,35 @@ import Cast from "./components/Cast";
 import Notfound from "./components/Notfound";
 import Tvdetail from "./components/Tv";
 import Trending from "./components/Trending";
-import Picout from "./components/picout";
+
 import useWindowDimensions from "./components/windowsize";
 import NowPlaying from "./components/nowPlaying";
 import { Button, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import Login from "./components/Loginstuf";
+import Auth from "./components/auth";
+import { useContext } from "react";
+import { UserContext } from "./components/context";
 
-const { Search } = Input;
-
-const links = [
-  { name: "home", path: "/" },
-  { name: "blog", path: "/blog" },
-  { name: "contact-us", path: "/contact-us" },
-  { name: "login", path: "/Login" },
-];
 const { Header, Content, Footer } = Layout;
 function App() {
+  const { user, setUser } = useContext(UserContext);
   const [value, setValue] = useState("");
   const { height, width } = useWindowDimensions();
+  let links = [
+    { name: "home", path: "/" },
+    { name: "blog", path: "/blog" },
+    { name: "contact-us", path: "/contact-us" },
+    { name: "login", path: "/Login" },
+  ];
   const history = useHistory();
+  if (user) {
+    links = [
+      { name: "home", path: "/" },
+      { name: "blog", path: "/blog" },
+      { name: "contact-us", path: "/contact-us" },
+    ];
+  }
   function handleKeyPress(e) {
     if (e.charCode === 13) {
       history.push(`/search?query=${value}`);
@@ -44,7 +52,7 @@ function App() {
   }
   return (
     <div id="components-layout-demo-custom-trigger">
-      <Layout className="layout">
+      <Layout className="layout" hasSider="true">
         <Header>
           <div className="logo" />
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
@@ -56,6 +64,14 @@ function App() {
                 </Menu.Item>
               );
             })}
+            {user ? (
+              <Menu.Item
+                style={{ float: "right" }}
+                onClick={() => setUser(null)}
+              >
+                {user.username}
+              </Menu.Item>
+            ) : null}
           </Menu>{" "}
           <Space direction="vertical">
             {width < 700 ? (
@@ -146,6 +162,9 @@ function App() {
             </Route>
             <Route path="/Moviedetail/:id">
               <Moviedetail />
+            </Route>
+            <Route exact path="/Auth">
+              <Auth />
             </Route>
             <Route path="/tv/:id">
               <Tvdetail />

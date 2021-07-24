@@ -1,11 +1,10 @@
-import React, { useState, useHistory } from "react";
-import { Spin, Row, Col, Input, Space } from "antd";
+import React, { useState } from "react";
+import { Spin, Row, Col, Input } from "antd";
 
 import { Card } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { Pagination } from "antd";
 
-const { Search } = Input;
 const { Meta } = Card;
 
 export default function Searchbar() {

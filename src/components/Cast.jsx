@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Affix, Card, Row, Col } from "antd";
-import YouTube from "@u-wave/react-youtube";
+import { Card, Row, Col } from "antd";
 
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
