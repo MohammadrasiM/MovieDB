@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { Layout, Menu } from "antd";
+import {
+  Layout,
+  Menu,
+  Avatar,
+  Dropdown,
+  Button,
+  Space,
+  Input,
+  Tooltip,
+} from "antd";
 import "./App.css";
-
+import { AntDesignOutlined } from "@ant-design/icons";
 import Firstcontent from "./components/content";
-import { Input, Space } from "antd";
+
 import { Link, useHistory } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
 import Contactus from "./components/Contactus";
@@ -19,7 +28,7 @@ import Trending from "./components/Trending";
 
 import useWindowDimensions from "./components/windowsize";
 import NowPlaying from "./components/nowPlaying";
-import { Button, Tooltip } from "antd";
+
 import { SearchOutlined } from "@ant-design/icons";
 import Login from "./components/Loginstuf";
 import Auth from "./components/auth";
@@ -45,11 +54,22 @@ function App() {
       { name: "contact-us", path: "/contact-us" },
     ];
   }
+
   function handleKeyPress(e) {
     if (e.charCode === 13) {
       history.push(`/search?query=${value}`);
     }
   }
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <h4>{user?.username}</h4>
+      </Menu.Item>
+      <Menu.Item danger onClick={() => setUser(null)}>
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <div id="components-layout-demo-custom-trigger">
       <Layout className="layout" hasSider="true">
@@ -65,11 +85,20 @@ function App() {
               );
             })}
             {user ? (
-              <Menu.Item
-                style={{ float: "right" }}
-                onClick={() => setUser(null)}
-              >
-                {user.username}
+              <Menu.Item style={{ float: "right" }}>
+                <div>
+                  <Dropdown overlay={menu} placement="bottomCenter">
+                    <Avatar
+                      src={`https://www.themoviedb.org/t/p/w780${
+                        user.avatar.tmdb.avatar_path ||
+                        user.avatar.gravatar.hash
+                      }`}
+                      size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 60, xxl: 60 }}
+                      icon={<AntDesignOutlined />}
+                      shape="square"
+                    />
+                  </Dropdown>
+                </div>
               </Menu.Item>
             ) : null}
           </Menu>{" "}
@@ -83,8 +112,8 @@ function App() {
                   style={{
                     width: 200,
                     gap: 8,
-                    position: " static",
-
+                    position: " absolute",
+                    top: 420,
                     right: 48,
                   }}
                 />
@@ -94,8 +123,8 @@ function App() {
                     <Button
                       style={{
                         gap: 8,
-                        position: " static",
-                        top: 16,
+                        position: " absolute",
+                        top: "420px",
                         right: 48,
                       }}
                       type="primary"

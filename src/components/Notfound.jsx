@@ -1,4 +1,4 @@
 import React from "react";
 export default function Notfound() {
-  return <h1>'your page not found'</h1>;
+  return <h1 style={{ color: "white" }}>'your page not found'</h1>;
 }
