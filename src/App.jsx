@@ -34,10 +34,10 @@ import Login from "./components/Loginstuf";
 import Auth from "./components/auth";
 import { useContext } from "react";
 import { UserContext } from "./components/context";
-
+import SEO from "./components/Helmet";
 const { Header, Content, Footer } = Layout;
 function App() {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, logout } = useContext(UserContext);
   const [value, setValue] = useState("");
   const { height, width } = useWindowDimensions();
   let links = [
@@ -65,13 +65,15 @@ function App() {
       <Menu.Item>
         <h4>{user?.username}</h4>
       </Menu.Item>
-      <Menu.Item danger onClick={() => setUser(null)}>
+      <Menu.Item danger onClick={logout}>
         Logout
       </Menu.Item>
     </Menu>
   );
   return (
     <div id="components-layout-demo-custom-trigger">
+      <SEO title="Home" />
+
       <Layout className="layout" hasSider="true">
         <Header>
           <div className="logo" />
@@ -87,7 +89,11 @@ function App() {
             {user ? (
               <Menu.Item style={{ float: "right" }}>
                 <div>
-                  <Dropdown overlay={menu} placement="bottomCenter">
+                  <Dropdown
+                    overlay={menu}
+                    placement="bottomCenter"
+                    trigger={["click"]}
+                  >
                     <Avatar
                       src={`https://www.themoviedb.org/t/p/w780${
                         user.avatar.tmdb.avatar_path ||

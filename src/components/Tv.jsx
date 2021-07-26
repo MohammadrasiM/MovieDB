@@ -18,6 +18,7 @@ import SwiperCore, {
   EffectCoverflow,
 } from "swiper/core";
 import { Table, Typography } from "antd";
+import SEO from "./Helmet";
 
 const { Text } = Typography;
 const { Meta } = Card;
@@ -107,6 +108,7 @@ export default function Tvdetail() {
       }}
       className="background"
     >
+      <SEO title={state.name} />
       <Row>
         {" "}
         <Col xs={24} sm={12} md={8} xl={6}>

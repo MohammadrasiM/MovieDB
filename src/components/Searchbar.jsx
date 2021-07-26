@@ -4,6 +4,7 @@ import { Spin, Row, Col, Input } from "antd";
 import { Card } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { Pagination } from "antd";
+import SEO from "./Helmet";
 
 const { Meta } = Card;
 
@@ -161,6 +162,7 @@ export default function Searchbar() {
 
   return (
     <div>
+      <SEO title="Search" />
       <Spin spinning={loading}>
         {" "}
         <Row gutter={100}>

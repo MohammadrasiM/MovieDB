@@ -18,6 +18,7 @@ import SwiperCore, {
   Navigation,
   EffectCoverflow,
 } from "swiper/core";
+import SEO from "./Helmet";
 const { Meta } = Card;
 SwiperCore.use([EffectCube, Autoplay, Pagination, Navigation, EffectCoverflow]);
 export default function Castdetail() {
@@ -57,6 +58,7 @@ export default function Castdetail() {
   }, []);
   return (
     <div className="background">
+      <SEO title={cast.name} />
       <Row>
         {" "}
         <Col xs={24} sm={12} md={8} xl={6}>

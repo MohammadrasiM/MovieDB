@@ -22,8 +22,14 @@ export default function UserProvider({ children }) {
         });
     }
   }, [sessionId]);
+  function logout() {
+    localStorage.clear();
+    setUser(null);
+    setSessionId(null);
+  }
+
   return (
-    <UserContext.Provider value={{ user, setUser, setSessionId }}>
+    <UserContext.Provider value={{ user, setUser, setSessionId, logout }}>
       {children}
     </UserContext.Provider>
   );

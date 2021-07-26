@@ -7,7 +7,7 @@ export default function Login() {
       .then((r) => r.json())
       .then((data) => {
         console.log(data.request_token);
-        window.location = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:3000/Auth`;
+        window.location = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=${process.env.REACT_APP_URL}`;
       });
   }, []);
   return <h1>login</h1>;

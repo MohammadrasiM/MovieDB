@@ -20,6 +20,7 @@ import SwiperCore, {
   Navigation,
 } from "swiper/core";
 import { Table } from "antd";
+import SEO from "./Helmet";
 
 const { Meta } = Card;
 SwiperCore.use([EffectCube, Navigation, Pagination, EffectCoverflow]);
@@ -100,6 +101,7 @@ export default function Moviedetail() {
     ?.filter((e) => e.job == "Director")
     .map(({ name }) => ({ name }));
   console.log(lol);
+
   return (
     <div
       className="background"
@@ -114,6 +116,7 @@ export default function Moviedetail() {
         backgroundrepeat: "no-repeat, no-repeat",
       }}
     >
+      <SEO title={state.original_title} />
       <Row>
         {" "}
         <Col xs={24} sm={12} md={8} xl={6}>
