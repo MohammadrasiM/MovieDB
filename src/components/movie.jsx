@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Card, Row, Col, Rate, Button, Popover } from "antd";
+import { Card, Row, Col, Button, Popover } from "antd";
 import YouTube from "@u-wave/react-youtube";
 
 import { Link } from "react-router-dom";
@@ -19,10 +19,19 @@ import SwiperCore, {
   EffectCoverflow,
   Navigation,
 } from "swiper/core";
-import { Table } from "antd";
+import { Rate, Table } from "antd";
 import SEO from "./Helmet";
 
 import { UserContext } from "./context";
+import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
+
+const customIcons = {
+  1: <FrownOutlined />,
+  2: <FrownOutlined />,
+  3: <MehOutlined />,
+  4: <SmileOutlined />,
+  5: <SmileOutlined />,
+};
 
 const { Meta } = Card;
 SwiperCore.use([EffectCube, Navigation, Pagination, EffectCoverflow]);
@@ -49,8 +58,8 @@ export default function Moviedetail() {
   const [cast, setCast] = useState([]);
   const [reveiws, setReveiws] = useState();
   const [recomendation, setRecomendation] = useState([]);
-
-  const { user } = useContext(UserContext);
+  const [r, setR] = useState();
+  const { user, sessionId } = useContext(UserContext);
   React.useEffect(() => {
     fetch(
       ` https://api.themoviedb.org/3/movie/${id}?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
@@ -107,6 +116,25 @@ export default function Moviedetail() {
     .map(({ name }) => ({ name }));
   console.log(lol);
 
+  function Raate(v) {
+    const url = `
+  https://api.themoviedb.org/3/movie/${id}/rating?api_key=70ce45fdad1824ccc3dad6c68ef34779&session_id=${sessionId}`;
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        value: v,
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+        console.log(v);
+      });
+
+    return null;
+  }
+
   return (
     <div
       className="background"
@@ -143,22 +171,35 @@ export default function Moviedetail() {
           <br />
           <h1 className="Otaman-title">{state.original_title}</h1>
           {user ? (
-            <Link to={`/Addfav/${id}`}>
-              <Popover content="Add as favorite">
-                <Button type="primary" shape="circle">
-                  <StarTwoTone spin="true" style={{ fontSize: 32 }} />
-                </Button>
-              </Popover>
-            </Link>
+            <>
+              {" "}
+              <Link to={`/Addfav/${id}`}>
+                <Popover content="Add as favorite">
+                  <Button type="primary" shape="circle">
+                    <StarTwoTone spin="true" style={{ fontSize: 32 }} />
+                  </Button>
+                </Popover>
+              </Link>
+              <br />
+              <Rate
+                onChange={(value) => Raate(value * 2)}
+                allowHalf
+                character={({ index }) => customIcons[index + 1]}
+              />
+            </>
           ) : null}
+          <br />
           <a className="Abriel" href={state.homepage} target="__blank">
             Homepage
           </a>
           <h3 className="Abriel">Director:{lol.map((e) => e.name)}</h3>
-          <h1 className="Abriel">
-            Score{" "}
-            <Rate allowHalf disabled value={Number(state.vote_average) / 2} />{" "}
-          </h1>
+          <h1 className="Abriel">Score </h1>
+          <Rate
+            allowHalf
+            disabled
+            value={Number(state.vote_average) / 2}
+          />{" "}
+          <br />{" "}
           <h3 className="Abriel">
             release date<p>{state.release_date}</p>
           </h3>

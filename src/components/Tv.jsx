@@ -19,6 +19,15 @@ import SwiperCore, {
 import { Table, Typography } from "antd";
 import SEO from "./Helmet";
 import { UserContext } from "./context";
+import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
+
+const customIcons = {
+  1: <FrownOutlined />,
+  2: <FrownOutlined />,
+  3: <MehOutlined />,
+  4: <SmileOutlined />,
+  5: <SmileOutlined />,
+};
 const { Text } = Typography;
 const { Meta } = Card;
 SwiperCore.use([EffectCube, Pagination, EffectCoverflow]);
@@ -39,7 +48,7 @@ export default function Tvdetail() {
 
   const { id } = useParams();
 
-  const { user } = useContext(UserContext);
+  const { user, sessionId } = useContext(UserContext);
   const [trail, setTrail] = useState([]);
   const [state, setState] = useState([]);
   const [cast, setCast] = useState([]);
@@ -93,7 +102,24 @@ export default function Tvdetail() {
         setReveiws(data.results);
       });
   }, [id]);
+  function Raate(v) {
+    const url = `
+  https://api.themoviedb.org/3/tv/${id}/rating?api_key=70ce45fdad1824ccc3dad6c68ef34779&session_id=${sessionId}`;
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        value: v,
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+        console.log(v);
+      });
 
+    return null;
+  }
   return (
     <div
       style={{
@@ -130,17 +156,26 @@ export default function Tvdetail() {
           <br />
           <h1 className="Otaman-title">{state.name}</h1>
           {user ? (
-            <Link to={`/Addfavtv/${id}`}>
-              <Popover content="Add as favorite">
-                <Button type="primary" shape="circle">
-                  <StarTwoTone
-                    spin="true"
-                    rotate={180}
-                    style={{ fontSize: 32 }}
-                  />
-                </Button>
-              </Popover>
-            </Link>
+            <>
+              {" "}
+              <Link to={`/Addfavtv/${id}`}>
+                <Popover content="Add as favorite">
+                  <Button type="primary" shape="circle">
+                    <StarTwoTone
+                      spin="true"
+                      rotate={180}
+                      style={{ fontSize: 32 }}
+                    />
+                  </Button>
+                </Popover>
+              </Link>{" "}
+              <br />
+              <Rate
+                onChange={(value) => Raate(value * 2)}
+                allowHalf
+                character={({ index }) => customIcons[index + 1]}
+              />
+            </>
           ) : null}
           <a className="Abriel" href={state.homepage} target="__blank">
             Homepage
