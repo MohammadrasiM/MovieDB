@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Card, Row, Col, Rate } from "antd";
+import { Card, Row, Col, Rate, Button, Popover } from "antd";
 import YouTube from "@u-wave/react-youtube";
 
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { StarTwoTone } from "@ant-design/icons";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/effect-cube/effect-cube.min.css";
@@ -21,6 +21,8 @@ import SwiperCore, {
 } from "swiper/core";
 import { Table } from "antd";
 import SEO from "./Helmet";
+
+import { UserContext } from "./context";
 
 const { Meta } = Card;
 SwiperCore.use([EffectCube, Navigation, Pagination, EffectCoverflow]);
@@ -47,6 +49,8 @@ export default function Moviedetail() {
   const [cast, setCast] = useState([]);
   const [reveiws, setReveiws] = useState();
   const [recomendation, setRecomendation] = useState([]);
+
+  const { user } = useContext(UserContext);
   React.useEffect(() => {
     fetch(
       ` https://api.themoviedb.org/3/movie/${id}?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US`
@@ -54,6 +58,7 @@ export default function Moviedetail() {
       .then((response) => response.json())
       .then((data) => {
         setState(data);
+        console.log(data);
       });
   }, [id]);
   React.useEffect(() => {
@@ -107,7 +112,7 @@ export default function Moviedetail() {
       className="background"
       style={{
         background:
-          "linear-gradient(rgb(255, 255, 255, 0.5) 100%, rgba(255, 255,255, 0.5)100%)," +
+          "linear-gradient(rgb(0, 0, 0, 0.5) 100%, rgba(0, 0,0, 0.5)100%)," +
           "url(" +
           `https://image.tmdb.org/t/p/w1280${state.backdrop_path}` +
           ")",
@@ -137,6 +142,15 @@ export default function Moviedetail() {
           ></Card>
           <br />
           <h1 className="Otaman-title">{state.original_title}</h1>
+          {user ? (
+            <Link to={`/Addfav/${id}`}>
+              <Popover content="Add as favorite">
+                <Button type="primary" shape="circle">
+                  <StarTwoTone spin="true" style={{ fontSize: 32 }} />
+                </Button>
+              </Popover>
+            </Link>
+          ) : null}
           <a className="Abriel" href={state.homepage} target="__blank">
             Homepage
           </a>
@@ -164,7 +178,7 @@ export default function Moviedetail() {
           <Row>
             <Col xs={24} sm={12} md={8} xl={6}>
               {" "}
-              <h1>Cast</h1>
+              <h1 className="Abriel">Cast</h1>
               <Swiper
                 effect={"coverflow"}
                 grabCursor={true}
@@ -217,7 +231,7 @@ export default function Moviedetail() {
               </Swiper>
             </Col>
             <Col xs={24} sm={12} md={12} xl={12}>
-              <h1>Reveiws</h1>
+              <h1 className="Abriel">Reveiws</h1>
 
               <Table
                 className="Atamic-review"
@@ -256,11 +270,7 @@ export default function Moviedetail() {
                 {trail.map((a) => (
                   <SwiperSlide
                     style={{
-                      background:
-                        "linear-gradient(rgb(255, 255, 255, 0.5) 100%, rgba(255, 255,255, 0.5)100%)," +
-                        "url(" +
-                        `https://image.tmdb.org/t/p/w1280${state.backdrop_path}` +
-                        ")",
+                      background: "inherit",
                       paddingBottom: 35,
                       paddingTop: 0,
                     }}
@@ -301,7 +311,7 @@ export default function Moviedetail() {
                   },
                 }}
                 style={{
-                  backgroundColor: "whitesmoke",
+                  background: "inherit",
                   paddingBottom: 35,
                 }}
                 slidesPerView={5}

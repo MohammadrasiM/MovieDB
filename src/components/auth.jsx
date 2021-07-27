@@ -3,11 +3,12 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "./context";
-
+import { message } from "antd";
 export default function Auth() {
   const { setSessionId } = useContext(UserContext);
   const history = useHistory();
   const locaton = useLocation();
+
   const requestToken = new URLSearchParams(locaton.search).get("request_token");
   useEffect(() => {
     if (requestToken) {
@@ -24,6 +25,14 @@ export default function Auth() {
         .then((data) => {
           setSessionId(data.session_id);
           history.replace("/");
+
+          fetch(
+            `https://api.themoviedb.org/3/account?api_key=70ce45fdad1824ccc3dad6c68ef34779&session_id=${data.session_id}`
+          )
+            .then((r) => r.json())
+            .then((d) => {
+              message.success(`Welcome ${d?.username}`);
+            });
         });
     }
   }, [requestToken]);

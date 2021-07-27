@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Card, Row, Col, Rate } from "antd";
+import { Card, Row, Col, Rate, Button, Popover } from "antd";
 import YouTube from "@u-wave/react-youtube";
-
+import { StarTwoTone } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -11,7 +11,6 @@ import "swiper/components/effect-cube/effect-cube.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/effect-coverflow/effect-coverflow.min.css";
 import "./styles.css";
-
 import SwiperCore, {
   EffectCube,
   Pagination,
@@ -19,7 +18,7 @@ import SwiperCore, {
 } from "swiper/core";
 import { Table, Typography } from "antd";
 import SEO from "./Helmet";
-
+import { UserContext } from "./context";
 const { Text } = Typography;
 const { Meta } = Card;
 SwiperCore.use([EffectCube, Pagination, EffectCoverflow]);
@@ -39,7 +38,8 @@ export default function Tvdetail() {
   ];
 
   const { id } = useParams();
-  const [top, setTop] = useState(100);
+
+  const { user } = useContext(UserContext);
   const [trail, setTrail] = useState([]);
   const [state, setState] = useState([]);
   const [cast, setCast] = useState([]);
@@ -98,7 +98,7 @@ export default function Tvdetail() {
     <div
       style={{
         background:
-          "linear-gradient(rgb(255, 255, 255, 0.5) 100%, rgba(255, 255,255, 0.5)100%)," +
+          "linear-gradient(rgb(0, 0, 0, 0.5) 100%, rgba(0, 0,0, 0.5)100%)," +
           "url(" +
           `https://image.tmdb.org/t/p/w1280${state.backdrop_path}` +
           ")",
@@ -129,6 +129,19 @@ export default function Tvdetail() {
           ></Card>
           <br />
           <h1 className="Otaman-title">{state.name}</h1>
+          {user ? (
+            <Link to={`/Addfavtv/${id}`}>
+              <Popover content="Add as favorite">
+                <Button type="primary" shape="circle">
+                  <StarTwoTone
+                    spin="true"
+                    rotate={180}
+                    style={{ fontSize: 32 }}
+                  />
+                </Button>
+              </Popover>
+            </Link>
+          ) : null}
           <a className="Abriel" href={state.homepage} target="__blank">
             Homepage
           </a>
@@ -157,7 +170,7 @@ export default function Tvdetail() {
           <Row>
             <Col xs={24} sm={12} md={8} xl={6}>
               {" "}
-              <h1>Cast</h1>
+              <h1 className="Abriel">Cast</h1>
               <Swiper
                 effect={"coverflow"}
                 grabCursor={true}
@@ -209,7 +222,7 @@ export default function Tvdetail() {
               </Swiper>
             </Col>
             <Col xs={24} sm={12} md={12} xl={12}>
-              <h1>Reveiws</h1>
+              <h1 className="Abriel">Reveiws</h1>
 
               <Table
                 className="Atamic-review"
@@ -246,8 +259,9 @@ export default function Tvdetail() {
               {trail.map((a) => (
                 <SwiperSlide
                   style={{
-                    backgroundColor: "whitesmoke",
+                    background: "inherit",
                     paddingBottom: 35,
+                    paddingTop: 0,
                   }}
                 >
                   {" "}
@@ -285,7 +299,7 @@ export default function Tvdetail() {
                   },
                 }}
                 style={{
-                  backgroundColor: "whitesmoke",
+                  background: "inherit",
                   paddingBottom: 35,
                 }}
                 slidesPerView={5}

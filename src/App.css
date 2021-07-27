@@ -4,16 +4,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
 .Atamic-review {
+  color: aliceblue;
   font-family: "Amatic SC";
   font-size: 24px;
 }
 .Abriel {
+  color: aliceblue;
   font-family: "Abril Fatface", cursive;
 }
 .Cinzel {
+  color: aliceblue;
   font-family: "Cinzel", serif;
 }
 .Otaman-title {
+  color: aliceblue;
   font-family: "Otomanopee One", sans-serif;
   font-size: 24px;
   text-shadow: 4px 4px 4px #aaa;

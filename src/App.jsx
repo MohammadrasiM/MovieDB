@@ -35,6 +35,9 @@ import Auth from "./components/auth";
 import { useContext } from "react";
 import { UserContext } from "./components/context";
 import SEO from "./components/Helmet";
+import Addfav from "./components/Addfav";
+import Addfavtv from "./components/Addfavtv";
+import Favlist from "./components/favlist";
 const { Header, Content, Footer } = Layout;
 function App() {
   const { user, setUser, logout } = useContext(UserContext);
@@ -60,10 +63,17 @@ function App() {
       history.push(`/search?query=${value}`);
     }
   }
+
   const menu = (
     <Menu>
       <Menu.Item>
         <h4>{user?.username}</h4>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to={`/Favlist`}>
+          {" "}
+          <h4>favorites</h4>
+        </Link>
       </Menu.Item>
       <Menu.Item danger onClick={logout}>
         Logout
@@ -201,12 +211,19 @@ function App() {
             <Route exact path="/Auth">
               <Auth />
             </Route>
+            <Route exact path="/Addfav/:id">
+              <Addfav />
+            </Route>
+            <Route exact path="/Favlist">
+              <Favlist />
+            </Route>
+            <Route exact path="/Addfavtv/:id">
+              <Addfavtv />
+            </Route>
             <Route path="/tv/:id">
               <Tvdetail />
             </Route>
-            {/* <Route path="/pics/:id">
-                <Picout />
-              </Route> */}
+
             <Route exact path="/">
               <Slider />
               <Sweeper />

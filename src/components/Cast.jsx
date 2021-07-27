@@ -82,13 +82,12 @@ export default function Castdetail() {
             {cast.name}
           </h1>
           <h2 className="Abriel">Known for</h2>
-          {cast.known_for_department}
-          <br />
+          <h3 className="Cinzel"> {cast.known_for_department}</h3> <br />
           <h2 className="Abriel">Gender</h2>
-          {cast.gender === 2 ? "Male" : "Female"}
+          <h3 className="Cinzel"> {cast.gender === 2 ? "Male" : "Female"}</h3>
           <br />
           <h2 className="Abriel">Birthday</h2>
-          {cast.birthday}
+          <h3 className="Cinzel"> {cast.birthday}</h3>
           {cast.deathday && (
             <>
               <h2 className="Abriel">Deathday</h2>
@@ -99,9 +98,12 @@ export default function Castdetail() {
           <h2 className="Abriel">Place of birth</h2>
           {cast.place_of_birth}
           <h2>Also known as</h2>
-          {cast?.also_known_as?.map((e) => {
-            return <p>{e}</p>;
-          })}
+          <h3 className="Cinzel">
+            {" "}
+            {cast?.also_known_as?.map((e) => {
+              return <p>{e}</p>;
+            })}
+          </h3>
         </Col>
         <Col xs={24} sm={12} md={8} xl={6}>
           {" "}

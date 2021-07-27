@@ -1,6 +1,6 @@
 import React, { useState, createContext } from "react";
 import { useEffect } from "react";
-
+import { message } from "antd";
 export const UserContext = createContext();
 
 export default function UserProvider({ children }) {
@@ -22,14 +22,20 @@ export default function UserProvider({ children }) {
         });
     }
   }, [sessionId]);
+  const warning = () => {
+    message.warning("You have Logged out");
+  };
   function logout() {
     localStorage.clear();
     setUser(null);
     setSessionId(null);
+    warning();
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, setSessionId, logout }}>
+    <UserContext.Provider
+      value={{ user, setUser, setSessionId, logout, sessionId }}
+    >
       {children}
     </UserContext.Provider>
   );
