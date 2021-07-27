@@ -35,7 +35,7 @@ export default function NowPlaying() {
   }, []);
   React.useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/tv/popular?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
+      `https://api.themoviedb.org/3/tv/top_rated?api_key=70ce45fdad1824ccc3dad6c68ef34779&language=en-US&page=1`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -88,6 +88,7 @@ export default function NowPlaying() {
         pagination={{ type: "fraction", clickable: true }}
         navigation={true}
         className="mySwiper"
+        loop={true}
       >
         {size === now
           ? size?.map((b) => (

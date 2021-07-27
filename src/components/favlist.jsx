@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import { Card, Row, Col } from "antd";
 
 import { Link } from "react-router-dom";
-
+import { CloseSquareTwoTone } from "@ant-design/icons";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/effect-cube/effect-cube.min.css";
@@ -20,6 +20,7 @@ const { Meta } = Card;
 export default function Favlist() {
   const { user, sessionId } = useContext(UserContext);
   const [fav, setFav] = useState();
+  const [favtv, setFavtv] = useState();
   const [loading, setLoading] = useState(true);
   React.useEffect(() => {
     fetch(
@@ -33,6 +34,17 @@ export default function Favlist() {
         setLoading(false);
       });
   }, [user]);
+  React.useEffect(() => {
+    fetch(
+      ` 
+          https://api.themoviedb.org/3/account/${user?.id}/favorite/tv?api_key=70ce45fdad1824ccc3dad6c68ef34779&session_id=${sessionId}&language=en-US&sort_by=created_at.asc&page=1`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setFavtv(data);
+        console.log(data);
+      });
+  }, [user]);
   return (
     <div className="background">
       <SEO title="favorite" />
@@ -41,7 +53,41 @@ export default function Favlist() {
         <Row gutter={100}>
           {fav?.results?.map((b) => (
             <Col key={b.id} xs={24} sm={12} md={8} xl={6}>
+              {" "}
+              <Link to={`/Removefav/${b.id}`}>
+                <CloseSquareTwoTone />
+              </Link>
               <Link to={`/Moviedetail/${b.id}`}>
+                {" "}
+                <Card
+                  style={{ overflow: "hidden", height: 500 }}
+                  loading={loading}
+                  hoverable
+                  cover={
+                    <img
+                      alt={b.original_title}
+                      src={
+                        `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+                          b.profile_path || b.poster_path
+                        }` || `https://image.tmdb.org/t/p/w500${b.poster_path}`
+                      }
+                    />
+                  }
+                >
+                  <Meta title={b.original_title} description={b.overview} />
+                </Card>
+              </Link>
+            </Col>
+          ))}
+        </Row>
+        <br />
+        <Row gutter={100}>
+          {favtv?.results?.map((b) => (
+            <Col key={b.id} xs={24} sm={12} md={8} xl={6}>
+              <Link to={`/Removefavtv/${b.id}`}>
+                <CloseSquareTwoTone />
+              </Link>
+              <Link to={`/tv/${b.id}`}>
                 {" "}
                 <Card
                   style={{ overflow: "hidden", height: 500 }}

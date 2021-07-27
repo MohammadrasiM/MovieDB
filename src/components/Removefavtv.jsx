@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { UserContext } from "./context";
 
-export default function Addfav() {
+export default function Removefavtv() {
   const { user, sessionId } = useContext(UserContext);
   const { id } = useParams();
   const history = useHistory();
@@ -16,15 +16,15 @@ export default function Addfav() {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify({
-        media_type: "movie",
+        media_type: "tv",
         media_id: id,
-        favorite: true,
+        favorite: false,
       }),
     })
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
-        history.replace(`/Moviedetail/${id}`);
+        history.replace(`/Favlist`);
       });
   });
   return null;
