@@ -36,10 +36,10 @@
 
 #components-layout-demo-custom-trigger .logo {
   float: left;
-  width: 120px;
-  height: 32px;
-  margin: 16px;
-  background: rgba(240, 220, 106, 0.3);
+  width: 63px;
+  height: 63px;
+
+  background-image: url(/src/star-wars-logo-icon-24.jpg);
 }
 .ant-menu.ant-menu-dark .ant-menu-item-selected,
 .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
