@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Card, Row, Col, Button, Popover } from "antd";
+import { Card, Row, Col, Button, Popover, message } from "antd";
 import YouTube from "@u-wave/react-youtube";
 
 import { Link } from "react-router-dom";
@@ -130,9 +130,28 @@ export default function Moviedetail() {
       .then((data) => {
         console.log(data);
         console.log(v);
+        message.info(`Thanks for Rating ${user.username} `);
       });
 
     return null;
+  }
+
+  function addFav() {
+    const url = `https://api.themoviedb.org/3/account/${user?.id}/favorite?api_key=70ce45fdad1824ccc3dad6c68ef34779&session_id=${sessionId}`;
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        media_type: "movie",
+        media_id: id,
+        favorite: true,
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+      });
+    message.info(`Added to your favorite list ${user.username} `);
   }
 
   return (
@@ -173,13 +192,11 @@ export default function Moviedetail() {
           {user ? (
             <>
               {" "}
-              <Link to={`/Addfav/${id}`}>
-                <Popover content="Add as favorite">
-                  <Button type="primary" shape="circle">
-                    <StarTwoTone spin="true" style={{ fontSize: 32 }} />
-                  </Button>
-                </Popover>
-              </Link>
+              <Popover content="Add as favorite">
+                <Button type="primary" shape="circle" onClick={() => addFav()}>
+                  <StarTwoTone spin="true" style={{ fontSize: 32 }} />
+                </Button>
+              </Popover>
               <br />
               <Rate
                 onChange={(value) => Raate(value * 2)}

@@ -35,11 +35,7 @@ import Auth from "./components/auth";
 import { useContext } from "react";
 import { UserContext } from "./components/context";
 import SEO from "./components/Helmet";
-import Addfav from "./components/Addfav";
-import Addfavtv from "./components/Addfavtv";
 import Favlist from "./components/favlist";
-import Removefav from "./components/Removefav";
-import Removefavtv from "./components/Removefavtv";
 const { Header, Content, Footer } = Layout;
 function App() {
   const { user, setUser, logout } = useContext(UserContext);
@@ -213,21 +209,11 @@ function App() {
             <Route exact path="/Auth">
               <Auth />
             </Route>
-            <Route exact path="/Addfav/:id">
-              <Addfav />
-            </Route>
+
             <Route exact path="/Favlist">
               <Favlist />
             </Route>
-            <Route exact path="/Removefav/:id">
-              <Removefav />
-            </Route>
-            <Route exact path="/Removefavtv/:id">
-              <Removefavtv />
-            </Route>
-            <Route exact path="/Addfavtv/:id">
-              <Addfavtv />
-            </Route>
+
             <Route path="/tv/:id">
               <Tvdetail />
             </Route>

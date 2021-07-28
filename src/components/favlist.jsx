@@ -33,7 +33,7 @@ export default function Favlist() {
         console.log(data);
         setLoading(false);
       });
-  }, [user]);
+  }, [fav]);
   React.useEffect(() => {
     fetch(
       ` 
@@ -44,7 +44,40 @@ export default function Favlist() {
         setFavtv(data);
         console.log(data);
       });
-  }, [user]);
+  }, [favtv]);
+
+  function removeFavMovie(a) {
+    const url = `https://api.themoviedb.org/3/account/${user?.id}/favorite?api_key=70ce45fdad1824ccc3dad6c68ef34779&session_id=${sessionId}`;
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        media_type: "movie",
+        media_id: a,
+        favorite: false,
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
+  function removeFavTv(a) {
+    const url = `https://api.themoviedb.org/3/account/${user?.id}/favorite?api_key=70ce45fdad1824ccc3dad6c68ef34779&session_id=${sessionId}`;
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        media_type: "tv",
+        media_id: a,
+        favorite: false,
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
   return (
     <div className="background">
       <SEO title="favorite" />
@@ -54,9 +87,12 @@ export default function Favlist() {
           {fav?.results?.map((b) => (
             <Col key={b.id} xs={24} sm={12} md={8} xl={6}>
               {" "}
-              <Link to={`/Removefav/${b.id}`}>
+              <a onClick={() => removeFavMovie(b.id)}>
+                {" "}
+                {/* <Link to={`/Removefav/${b.id}`}> */}
                 <CloseSquareTwoTone />
-              </Link>
+                {/* </Link> */}
+              </a>
               <Link to={`/Moviedetail/${b.id}`}>
                 {" "}
                 <Card
@@ -84,9 +120,9 @@ export default function Favlist() {
         <Row gutter={100}>
           {favtv?.results?.map((b) => (
             <Col key={b.id} xs={24} sm={12} md={8} xl={6}>
-              <Link to={`/Removefavtv/${b.id}`}>
+              <a onClick={() => removeFavTv(b.id)}>
                 <CloseSquareTwoTone />
-              </Link>
+              </a>
               <Link to={`/tv/${b.id}`}>
                 {" "}
                 <Card
