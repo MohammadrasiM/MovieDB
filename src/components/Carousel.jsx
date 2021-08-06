@@ -43,7 +43,7 @@ export default function Slider() {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        style={{ maxHeight: 400 }}
+        style={{ maxHeight: 500 }}
         spaceBetween={30}
         effect={"fade"}
         navigation={true}
@@ -56,7 +56,7 @@ export default function Slider() {
           <Link to={"/search?query=star%20wars"}>
             {" "}
             <img
-              src="https://wallpaperaccess.com/full/124631.jpg"
+              src="https://wallpaperaccess.com/full/1223847.jpg"
               onClick={() => imageClick()}
             />
           </Link>
@@ -64,7 +64,8 @@ export default function Slider() {
         <SwiperSlide>
           <Link to={"/search?query=the%20lord%20of%20the%20rings"}>
             <img
-              src="https://wallpaperaccess.com/full/160365.jpg"
+              style={{ backgroundSize: "cover", width: "100%" }}
+              src="https://wallpaperaccess.com/full/4591119.jpg"
               onClick={() => imageClic()}
             />
           </Link>{" "}
@@ -72,7 +73,7 @@ export default function Slider() {
         <SwiperSlide>
           <Link to={"/search?query=Avengers"}>
             <img
-              src="https://wallpaperaccess.com/full/4674.jpg"
+              src="https://wallpapercave.com/wp/wp5511233.jpg"
               onClick={() => imageCli()}
             />
           </Link>{" "}
@@ -80,7 +81,8 @@ export default function Slider() {
         <SwiperSlide>
           <Link to={"/search?query=rick%20and%20morty"}>
             <img
-              src="https://wallpaperaccess.com/full/238268.jpg"
+              style={{ backgroundSize: "cover" }}
+              src="https://images6.alphacoders.com/909/thumb-1920-909641.png"
               onClick={() => imageCl()}
             />
           </Link>{" "}
